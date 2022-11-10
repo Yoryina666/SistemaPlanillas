@@ -1,7 +1,0 @@
-Controller\BeanUsuario.class
-com\mycompany\prueba\resources\JavaEE8Resource.class
-com\mycompany\prueba\JAXRSConfiguration.class
-Model\Usuario.class
-DAO\AccesoDatos.class
-DAO\SNMPExceptions.class
-Model\UsuarioDB.class
