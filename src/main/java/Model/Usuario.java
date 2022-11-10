@@ -12,12 +12,12 @@ import java.util.Date;
  */
 public class Usuario {
     private String nombre;
-    private byte[] contrasena;
+    private String contrasena;
     private int tipo;
     private Date vigenciaM;
     private boolean estado;
     
-     public Usuario(String nombre,byte[] contrasena, int tipo,Date vigenciaM, boolean estado){
+     public Usuario(String nombre,String contrasena, int tipo,Date vigenciaM, boolean estado){
         this.setNombre(nombre);
         this.setContrasena(contrasena);
         this.setTipo(tipo);
@@ -27,11 +27,11 @@ public class Usuario {
 public Usuario(){
         
     }
-    public byte[] getContrasena() {
+    public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(byte[] contrasena) {
+    public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 

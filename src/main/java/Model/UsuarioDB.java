@@ -79,7 +79,7 @@ public class UsuarioDB {
             while(rsPA.next()){
                 
                 String nomUser= rsPA.getString("nombre");
-                byte[] contrasena=rsPA.getBytes("contrasena");
+                String contrasena=rsPA.getString("contrasena");
                 int tipo=rsPA.getInt("tipo");
                 Date vigenciaM = rsPA.getDate("vigenciaMaxima");
                 boolean estado= rsPA.getBoolean("activo");

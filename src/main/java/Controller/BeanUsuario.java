@@ -23,7 +23,7 @@ import javax.naming.NamingException;
 @SessionScoped
 public class BeanUsuario implements Serializable{
     private String nombre;
-    private byte[] contrasena;
+    private String contrasena;
     private String tipo;
     private String vigenciaM;
     private boolean estado;
@@ -44,11 +44,11 @@ public class BeanUsuario implements Serializable{
         this.nombre = nombre;
     }
 
-    public byte[] getContrasena() {
+    public String getContrasena() {
         return contrasena;
     }
 
-    public void setContrasena(byte[] contrasena) {
+    public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
@@ -108,7 +108,7 @@ public class BeanUsuario implements Serializable{
             while(rsPA.next()){
 
             String nom= rsPA.getString("nombre");
-            byte cont=rsPA.getByte("contrasena");
+            String cont=rsPA.getString("contrasena");
             
                 
                 
