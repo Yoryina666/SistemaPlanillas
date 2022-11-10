@@ -15,43 +15,41 @@ import java.util.LinkedList;
 import javax.naming.NamingException;
 
 public class UsuarioDB {
+
     private AccesoDatos accesoDatos = new AccesoDatos();
     private Connection conn;
-    
+
     private LinkedList<Usuario> listaUser = new LinkedList<Usuario>();
-    public UsuarioDB (Connection conn) {
-        accesoDatos = new AccesoDatos();    
+
+    public UsuarioDB(Connection conn) {
+        accesoDatos = new AccesoDatos();
         accesoDatos.setDbConn(conn);
     }
-    
-    public UsuarioDB () {
+
+    public UsuarioDB() {
         super();
     }
-    
-  //insertar usuarios en la base de datos.
-    public void InsertarUsuario(Usuario pUsuario) 
-                throws SNMPExceptions, SQLException {
+
+    //insertar usuarios en la base de datos.
+    public void InsertarUsuario(Usuario pUsuario)
+            throws SNMPExceptions, SQLException {
         String strSQL = "";
 
-         
-         try {
-         //Se obtienen los valores del objeto Usuario
-        Usuario user = new Usuario();
-        user=pUsuario;
-        
-            strSQL = 
-            "INSERT INTO Usuario(nombre,contrasena,tipo,vigenciaMaxima,"
-                    + "activo) VALUES "
-         + "(" + "'" + user.getNombre()+ "'" + "," 
-               + "'"+ user.getContrasena()+"'"+ ","
-               + "'"+ user.getTipo()+"'"+ ","
-               + "'"+ user.getVigenciaM()+"'" + ","
-               + "'"+ user.isEstado()+"'"+ ",";
-                            
-   
-                     //Se ejecuta la sentencia SQL
-            accesoDatos.ejecutaSQL(strSQL);
+        try {
+            //Se obtienen los valores del objeto Usuario
+            Usuario user = new Usuario();
+            user = pUsuario;
 
+            strSQL
+                    = "INSERT INTO Usuario(nombre,contrasena,tipo,vigenciaMaxima,"
+                    + "activo) VALUES "
+                    + "(" + "'" + user.getNombre() + "'" + ","
+                    + "'" + user.getTipo() + "'" + ","
+                    + "'" + user.getVigenciaM() + "'" + ","
+                    + "'" + user.isEstado() + "'" + ",";
+
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
 
         } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
@@ -61,45 +59,64 @@ public class UsuarioDB {
 
         }
     }
-    
- public LinkedList<Usuario> moTodo() throws SNMPExceptions, SQLException{
-        String select= "";
-        LinkedList<Usuario> listaUser= new LinkedList<Usuario>();
-        
-        try{
+
+    public Usuario login(String nombre, String contrasena) throws SQLException, SNMPExceptions, ClassNotFoundException, NamingException {
+        Usuario usuario = null;
+        String query = String.format("SELECT * FROM dbo.TRY_LOGIN('%s', '%s')", nombre, contrasena);
+        try (
+                ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(query)
+            ) {
+            if (rsPA.next()) {
+                usuario = new Usuario(
+                    rsPA.getString("Nombre"),
+                    TipoUsuario.values()[rsPA.getInt("Tipo")],
+                    rsPA.getDate("Vigencia"),
+                    rsPA.getBoolean("Activo")
+                );
+            }
+        } catch (SQLException | SNMPExceptions | ClassNotFoundException | NamingException e) {
+            throw e;
+        } finally {
+            return usuario;
+        }
+    }
+
+    public LinkedList<Usuario> moTodo() throws SNMPExceptions, SQLException {
+        String select = "";
+        LinkedList<Usuario> listaUser = new LinkedList<Usuario>();
+
+        try {
             //Se intancia la clase de acceso a datos
-            AccesoDatos accesoDatos= new AccesoDatos();
-            
+            AccesoDatos accesoDatos = new AccesoDatos();
+
             //Se crea la sentencia de Busqueda
-            select=
-                    "Select nombre, contrasena, tipo, vigenciaMaxima, activo from Usuario";
+            select
+                    = "Select nombre, tipo, vigenciaMaxima, activo from Usuario";
             //se ejecuta la sentencia sql
-            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los proyectos
-            while(rsPA.next()){
-                
-                String nomUser= rsPA.getString("nombre");
-                String contrasena=rsPA.getString("contrasena");
-                int tipo=rsPA.getInt("tipo");
+            while (rsPA.next()) {
+
+                String nomUser = rsPA.getString("nombre");
+                TipoUsuario tipo = TipoUsuario.values()[rsPA.getInt("Tipo")];
                 Date vigenciaM = rsPA.getDate("vigenciaMaxima");
-                boolean estado= rsPA.getBoolean("activo");
-                
+                boolean estado = rsPA.getBoolean("activo");
+
                 //se construye el objeto.
-                Usuario perUsuario = new Usuario(nomUser,contrasena, tipo, vigenciaM,estado);
-                
+                Usuario perUsuario = new Usuario(nomUser, tipo, vigenciaM, estado);
+
                 listaUser.add(perUsuario);
             }
             rsPA.close();//se cierra el ResultSeat.
-            
-        }catch(SQLException e){
-            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
-                                     e.getMessage(),e.getErrorCode());
-        }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
-        }finally{
-            
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (SNMPExceptions | ClassNotFoundException | NamingException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
         }
         return listaUser;
     }
 }
-

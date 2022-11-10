@@ -11,30 +11,21 @@ import java.util.Date;
  * @author Juan Gabriel
  */
 public class Usuario {
+
     private String nombre;
-    private String contrasena;
-    private int tipo;
+    private TipoUsuario tipo;
     private Date vigenciaM;
     private boolean estado;
-    
-     public Usuario(String nombre,String contrasena, int tipo,Date vigenciaM, boolean estado){
-        this.setNombre(nombre);
-        this.setContrasena(contrasena);
-        this.setTipo(tipo);
-        this.setVigenciaM(vigenciaM);
-        this.setEstado(estado);
-    }
-public Usuario(){
-        
-    }
-    public String getContrasena() {
-        return contrasena;
+
+    public Usuario(String nombre, TipoUsuario tipo, Date vigenciaM, boolean estado) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.vigenciaM = vigenciaM;
+        this.estado = estado;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public Usuario() {
     }
-
 
     public String getNombre() {
         return nombre;
@@ -44,11 +35,11 @@ public Usuario(){
         this.nombre = nombre;
     }
 
-    public int getTipo() {
+    public TipoUsuario getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(TipoUsuario tipo) {
         this.tipo = tipo;
     }
 
@@ -67,6 +58,5 @@ public Usuario(){
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-     
-    
+
 }

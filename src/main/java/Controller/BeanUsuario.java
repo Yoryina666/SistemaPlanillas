@@ -16,24 +16,25 @@ import java.sql.Statement;
 import java.util.Iterator;
 import java.util.LinkedList;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
 
-
 @SessionScoped
-public class BeanUsuario implements Serializable{
+public class BeanUsuario implements Serializable {
+
     private String nombre;
     private String contrasena;
     private String tipo;
     private String vigenciaM;
     private boolean estado;
     private String mensaje;
-    private LinkedList<Usuario> listaU= new LinkedList<Usuario>();
+    private LinkedList<Usuario> listaU = new LinkedList<Usuario>();
 //    private AccesoDatos accesoDatos = new AccesoDatos();
 //    private Connection conn;
 
     public BeanUsuario() {
-    
+
     }
 
     public String getNombre() {
@@ -77,55 +78,43 @@ public class BeanUsuario implements Serializable{
     }
 
     public LinkedList<Usuario> getListaU() throws SNMPExceptions, SQLException {
-      LinkedList<Usuario> lista = new 
-                    LinkedList<Usuario>();
+        LinkedList<Usuario> lista = new LinkedList<Usuario>();
         UsuarioDB uDB = new UsuarioDB();
-        
+
         lista = uDB.moTodo();
-        
+
         LinkedList resultLista = new LinkedList();
-           
-        resultLista=lista;       
-        return resultLista; 
+
+        resultLista = lista;
+        return resultLista;
     }
 
     public void setListaU(LinkedList<Usuario> listaU) {
         this.listaU = listaU;
     }
-    
-    public void Login() throws SNMPExceptions{
-     String pagina = "";
-        try{
-            //Se intancia la clase de acceso a datos
-            AccesoDatos accesoDatos= new AccesoDatos();
-            
-            //Se crea la sentencia de Busqueda
-            String query = "SELECT * FROM USUARIO WHERE NOMBRE = '"+nombre+"'and contrasena= '"+contrasena+"'";
 
-            //se ejecuta la sentencia sql
-            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(query);
-            //se llama el array con los proyectos
-            while(rsPA.next()){
-
-            String nom= rsPA.getString("nombre");
-            String cont=rsPA.getString("contrasena");
-            
-                
-                
-                
-                
+    public String login() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        String pagina = "index.xhtml";
+        UsuarioDB uDB = new UsuarioDB();
+        Usuario usuario = uDB.login(nombre, contrasena);
+        if (usuario == null) {
+            mensaje = "Credenciales incorrectas, usuario inexistente o usuario bloqueado";
+        } else {
+            switch (usuario.getTipo()) {
+                case ADMINISTRADOR:
+                    pagina = "MantenimientoEmpleado.xhtml";
+                    break;
+                case PLANILLERO:
+                    pagina = "MantenimientoEmpleado.xhtml";
+                    break;
+                case RECURSOS_HUMANOS:
+                    pagina = "MantenimientoEmpleado.xhtml";
+                    break;
+                default:
+                    throw new AssertionError("Se obtuvo un entero de tipo inexistente como enumeral.");
             }
-            
-            rsPA.close();//se cierra el ResultSeat.
-            
-        }catch(SQLException e){
-            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
-                                     e.getMessage(),e.getErrorCode());
-        }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
-        }finally{
-            
         }
+        return pagina;
     }
-    
+
 }

@@ -1,5 +1,5 @@
---insert into usuario values(3,'Admin',dbo.ENCRIPTA_PASS('PassAdmin'));
---select dbo.desencriptar_pass('pG5P4zz') from usuario;
+--insert into usuario values(dbo.ENCRIPTAR_PASS('pG5P4zz'));
+--select dbo.DESENCRIPTAR_PASS(contrasena) from usuario;
 
 use ProyectoG5;
 
