@@ -4,17 +4,23 @@
  */
 package Controller;
 
+import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
 import Model.Usuario;
 import Model.UsuarioDB;
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.LinkedList;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.naming.NamingException;
 
 
-
+@SessionScoped
 public class BeanUsuario implements Serializable{
     private String nombre;
     private byte[] contrasena;
@@ -23,8 +29,11 @@ public class BeanUsuario implements Serializable{
     private boolean estado;
     private String mensaje;
     private LinkedList<Usuario> listaU= new LinkedList<Usuario>();
+//    private AccesoDatos accesoDatos = new AccesoDatos();
+//    private Connection conn;
 
     public BeanUsuario() {
+    
     }
 
     public String getNombre() {
@@ -84,8 +93,39 @@ public class BeanUsuario implements Serializable{
         this.listaU = listaU;
     }
     
-    public void Login(){
-        
+    public void Login() throws SNMPExceptions{
+     String pagina = "";
+        try{
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos= new AccesoDatos();
+            
+            //Se crea la sentencia de Busqueda
+            String query = "SELECT * FROM USUARIO WHERE NOMBRE = '"+nombre+"'and contrasena= '"+contrasena+"'";
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(query);
+            //se llama el array con los proyectos
+            while(rsPA.next()){
+
+            String nom= rsPA.getString("nombre");
+            byte cont=rsPA.getByte("contrasena");
+            
+                
+                
+                
+                
+            }
+            
+            rsPA.close();//se cierra el ResultSeat.
+            
+        }catch(SQLException e){
+            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
+                                     e.getMessage(),e.getErrorCode());
+        }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
+        }finally{
+            
+        }
     }
     
 }

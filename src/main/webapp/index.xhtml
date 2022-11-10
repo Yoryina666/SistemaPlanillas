@@ -94,14 +94,14 @@
                      <div class="row">
 
                         <div class="col-md-6">
-                           <input class="contactus" placeholder="Usuario" type="type" name="Name"/> 
+                            <input class="contactus" placeholder="Usuario" type="type" name="Name" value="#{BeanUsuario.nombre}"/> 
                         </div>
                         <div class="col-md-6">
-                           <input class="contactus" placeholder=" Contraseña" type="type" name="Email"/> 
+                            <input class="contactus" placeholder=" Contraseña" type="type" name="Email" value="#{BeanUsuario.contrasena}"/> 
                         </div>
                        
                         <div class="col-md-12">
-                            <button class="send_btn">Iniciar Sesión</button>
+                            <button class="send_btn" value="#{BeanUsuario.Login()}">Iniciar Sesión</button>
                         </div>
                      </div>
                   </div>
