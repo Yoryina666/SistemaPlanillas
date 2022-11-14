@@ -101,16 +101,19 @@ public class BeanUsuario implements Serializable {
         if (usuario == null) {
             mensaje = "Credenciales incorrectas, usuario inexistente o usuario bloqueado";
         } else {
-            mensaje = "";
+            
             switch (usuario.getTipo()) { 
                 case ADMINISTRADOR:
                     pagina = "MantenimientoEmpleado.xhtml";
+                    setMensaje("");
                     break;
                 case PLANILLERO:
                     pagina = "MantenimientoEmpleado.xhtml";
+                    setMensaje("");
                     break;
                 case RECURSOS_HUMANOS:
                     pagina = "MantenimientoEmpleado.xhtml";
+                    setMensaje("");
                     break;
                 default:
                     throw new AssertionError("Se obtuvo un entero de tipo inexistente como enumeral.");
