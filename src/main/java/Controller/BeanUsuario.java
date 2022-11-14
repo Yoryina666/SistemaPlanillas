@@ -4,20 +4,13 @@
  */
 package Controller;
 
-import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
 import Model.Usuario;
 import Model.UsuarioDB;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Iterator;
 import java.util.LinkedList;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.model.SelectItem;
 import javax.naming.NamingException;
 
 @SessionScoped
