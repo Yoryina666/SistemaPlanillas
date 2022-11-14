@@ -21,13 +21,21 @@ public class BeanUsuario implements Serializable {
     private String tipo;
     private String vigenciaM;
     private boolean estado;
-    private String mensaje;
+    private String mensaje = "";
     private LinkedList<Usuario> listaU = new LinkedList<Usuario>();
 //    private AccesoDatos accesoDatos = new AccesoDatos();
 //    private Connection conn;
 
     public BeanUsuario() {
 
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
     public String getNombre() {
@@ -93,7 +101,8 @@ public class BeanUsuario implements Serializable {
         if (usuario == null) {
             mensaje = "Credenciales incorrectas, usuario inexistente o usuario bloqueado";
         } else {
-            switch (usuario.getTipo()) {
+            mensaje = "";
+            switch (usuario.getTipo()) { 
                 case ADMINISTRADOR:
                     pagina = "MantenimientoEmpleado.xhtml";
                     break;
