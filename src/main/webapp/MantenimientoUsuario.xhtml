@@ -11,7 +11,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
       <!-- site metas -->
-      <title>Mantenimiento de empleados</title>
+      <title>Mantenimiento de usuarios</title>
       <meta name="keywords" content=""/>
       <meta name="description" content=""/>
       <meta name="author" content=""/>
@@ -93,29 +93,22 @@
                      <div class="row">
                          
                         <div class="col-md-6">
-                            <h:outputText styleClass="Tlabel" value="Cédula"></h:outputText>
-                            <h:inputText class="contactus"  value="#{BeanEmpleado.cedula}"></h:inputText> 
+                            <h:outputText styleClass="Tlabel" value="Nombre"></h:outputText>
+                            <h:inputText class="contactus"  value="#{BeanUsuario.nombre}"></h:inputText> 
                         </div>
                         <div class="col-md-6">
-                            <h:outputText styleClass="Tlabel" value="Nombre"></h:outputText>
-                            <h:inputText class="contactus" value="#{BeanEmpleado.nombre}"></h:inputText>
+                            <h:outputText styleClass="Tlabel" value="Contraseña"></h:outputText>
+                            <h:inputText class="contactus" value="#{BeanUsuario.contrasena}"></h:inputText>
                         </div>
                          <div class="col-md-6">
-                             <h:outputText styleClass="Tlabel" value="Apellidos"></h:outputText>
-                             <h:inputText class="contactus" value="#{BeanEmpleado.apellido}"></h:inputText>
+                             <h:outputText styleClass="Tlabel" value="Tipo"></h:outputText>
+                             <h:inputText class="contactus" value="#{BeanUsuario.tipo}"></h:inputText>
                         </div>
                         <div class="col-md-6">
-                            <h:outputText styleClass="Tlabel" value="Salario Base"></h:outputText>
-                            <h:inputText class="contactus" label="Salario Base" value="#{BeanEmpleado.salarioBase}"></h:inputText>
+                            <h:outputText styleClass="Tlabel" value="Vigencia máxima"></h:outputText>
+                            <h:inputText class="contactus" label="Salario Base" value="#{BeanUsuario.vigenciaM}"></h:inputText>
                         </div>
-                        <div class="col-md-6">
-                            <h:outputText styleClass="Tlabel" value="Horas"></h:outputText>
-                            <h:inputText class="contactus" label="Horas" value="#{BeanEmpleado.horas}"></h:inputText> 
-                        </div>
-                        <div class="col-md-6">
-                             <h:outputText styleClass="Tlabel" value="Jornada"></h:outputText>
-                             <h:inputText class="contactus" label="Jornada" value="#{BeanEmpleado.jornada}"></h:inputText> 
-                        </div>
+                        
                         <div class="col-md-6">
                             <label class="contactus" for="flexCheckDefault">Activo</label>
                             <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault" value="#{BeanEmpleado.activo}"></h:selectBooleanCheckbox>
@@ -129,7 +122,7 @@
                    <br></br>
                    <br></br>
                    
-                   <h2 class="titlepage">Empleados</h2>
+                   <h2 class="titlepage">Usuarios</h2>
                   <div class="col-md-12">
                    
                          
@@ -206,4 +199,3 @@
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
    </h:body>
 </html>
-
