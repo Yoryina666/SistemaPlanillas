@@ -93,29 +93,35 @@
                      <div class="row">
                          
                         <div class="col-md-6">
-                            <input class="contactus" placeholder="Cédula " type="type" name="" value=""/> 
+                            <h:outputText styleClass="Tlabel" value="Cédula"></h:outputText>
+                            <h:inputText class="contactus"  value="#{BeanEmpleado.cedula}"></h:inputText> 
                         </div>
                         <div class="col-md-6">
-                            <input class="contactus" placeholder="Nombre " type="type" name="" value=""/> 
+                            <h:outputText styleClass="Tlabel" value="Nombre"></h:outputText>
+                            <h:inputText class="contactus" value="#{BeanEmpleado.nombre}"></h:inputText>
                         </div>
                          <div class="col-md-6">
-                            <input class="contactus" placeholder="Apellidos " type="type" name="" value=""/> 
+                             <h:outputText styleClass="Tlabel" value="Apellidos"></h:outputText>
+                             <h:inputText class="contactus" value="#{BeanEmpleado.apellido}"></h:inputText>
                         </div>
                         <div class="col-md-6">
-                            <input class="contactus" placeholder="Salario base " type="type" name="" value=""/> 
+                            <h:outputText styleClass="Tlabel" value="Salario Base"></h:outputText>
+                            <h:inputText class="contactus" label="Salario Base" value="#{BeanEmpleado.salarioBase}"></h:inputText>
                         </div>
                         <div class="col-md-6">
-                            <input class="contactus" placeholder="Horas " type="type" name="" value=""/> 
+                            <h:outputText styleClass="Tlabel" value="Horas"></h:outputText>
+                            <h:inputText class="contactus" label="Horas" value="#{BeanEmpleado.horas}"></h:inputText> 
                         </div>
                         <div class="col-md-6">
-                            <input class="contactus" placeholder="Jornada" type="type" name="" value=""/> 
+                             <h:outputText styleClass="Tlabel" value="Jornada"></h:outputText>
+                             <h:inputText class="contactus" label="Jornada" value="#{BeanEmpleado.jornada}"></h:inputText> 
                         </div>
                         <div class="col-md-6">
                             <label class="contactus" for="flexCheckDefault">Activo</label>
-                            <input class=" form-check-input" type="checkbox" id="flexCheckDefault" /> 
+                            <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault" value="#{BeanEmpleado.activo}"></h:selectBooleanCheckbox>
                         </div>
                         <div class="col-md-12">
-                            <button class="send_btn" >Crear</button>
+                            <h:commandButton class="send_btn" value="Crear" ></h:commandButton>
                         </div>
                         
                      </div>
@@ -155,7 +161,9 @@
                         </div>
                         
                         <div class="col-md-12">
-                            <button class="send_btn" >Consultar</button>
+                            <h:commandButton class="send_btn" value="Consultar"></h:commandButton>
+                            <br></br>
+                            <h:commandButton class="send_btn" value="Editar"></h:commandButton>
                         </div>
                         
                      
