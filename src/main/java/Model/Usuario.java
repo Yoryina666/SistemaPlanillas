@@ -1,32 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import java.util.Date;
 
 /**
- *
+ * Clase entidad para usuarios del sistema
  * @author Juan Gabriel
+ * @author Aylan Miranda
  */
 public class Usuario {
 
+    /** Nombre del usuario */
     private String nombre;
+    
+    /** Tipo de usuario del enum {@link Model.TipoUsuario} */
     private TipoUsuario tipo;
+    
+    /** Fecha en la cuál la contraseña debe ser cambiada */
     private Date vigenciaM;
+    
+    /** Indica si el usuario es permitido en el sistema  */
     private boolean estado;
 
+    /**
+     * Constructor con datos
+     * @param nombre Nombre
+     * @param tipo Tipo de usuario
+     * @param vigenciaM Vigencia máxima
+     * @param estado Estado
+     */
     public Usuario(String nombre, TipoUsuario tipo, Date vigenciaM, boolean estado) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.vigenciaM = vigenciaM;
         this.estado = estado;
     }
-
-    public Usuario() {
-    }
-
+    
+    // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
+    
     public String getNombre() {
         return nombre;
     }
@@ -58,5 +68,7 @@ public class Usuario {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
+    
+    // </editor-fold>
+    
 }

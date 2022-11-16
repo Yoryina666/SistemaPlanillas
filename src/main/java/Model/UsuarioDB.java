@@ -31,14 +31,12 @@ public class UsuarioDB {
     }
 
     //insertar usuarios en la base de datos.
-    public void InsertarUsuario(Usuario pUsuario)
-            throws SNMPExceptions, SQLException {
+    public void InsertarUsuario(Usuario user)
+            throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         String strSQL = "";
 
         try {
             //Se obtienen los valores del objeto Usuario
-            Usuario user = new Usuario();
-            user = pUsuario;
 
             strSQL
                     = "INSERT INTO Usuario(nombre,contrasena,tipo,vigenciaMaxima,"
@@ -51,10 +49,8 @@ public class UsuarioDB {
             //Se ejecuta la sentencia SQL
             accesoDatos.ejecutaSQL(strSQL);
 
-        } catch (SQLException e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
-        } catch (Exception e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } catch (SQLException | SNMPExceptions | ClassNotFoundException | NamingException e) {
+            throw e;
         } finally {
 
         }
