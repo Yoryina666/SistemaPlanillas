@@ -1,13 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package Model;
 
 /**
- *
- * @author Estudiante
+ * @author Aylan Miranda
  */
 public enum TipoUsuario {
-    ADMINISTRADOR, PLANILLERO, RECURSOS_HUMANOS
+    ADMINISTRADOR {
+        @Override
+        public String toString() {
+            return "Administrador";
+        }
+    }, PLANILLERO {
+        @Override
+        public String toString() {
+            return "Planillero";
+        }
+    }, RECURSOS_HUMANOS {
+        @Override
+        public String toString() {
+            return "Recursos Humanos";
+        }
+    }
 }

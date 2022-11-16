@@ -34,6 +34,7 @@
 
 /*--------------------------------------------------------------------- skeleton ---------------------------------------------------------------------*/
 
+
 * {
      box-sizing: border-box !important;
 }
@@ -368,6 +369,10 @@ button {
      border-radius: inherit;
      border-bottom: #fff solid 1px;
      
+}
+
+.main_form .dropList > option {
+    color: #000000;
 }
 
 .main_form .Tlabel{

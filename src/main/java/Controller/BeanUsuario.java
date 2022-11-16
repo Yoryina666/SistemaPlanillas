@@ -5,39 +5,38 @@
 package Controller;
 
 import DAO.SNMPExceptions;
+import Model.TipoUsuario;
 import Model.Usuario;
 import Model.UsuarioDB;
-import java.io.Serializable;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.LinkedList;
-import javax.enterprise.context.SessionScoped;
-import javax.naming.NamingException;
 
-@SessionScoped
-public class BeanUsuario implements Serializable {
-
-    private String nombre;
-    private String contrasena;
-    private String tipo;
-    private String vigenciaM;
-    private boolean estado;
-    private String mensaje = "";
-    private LinkedList<Usuario> listaU = new LinkedList<Usuario>();
-//    private AccesoDatos accesoDatos = new AccesoDatos();
-//    private Connection conn;
-
-    public BeanUsuario() {
-
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
+public class BeanUsuario {
+    
+    /** Nombre del usuario */
+    String nombre;
+    
+    /** Clave secreta */
+    String contrasena;
+    
+    /** Tipo de usuario del enum {@link Model.TipoUsuario} */
+    TipoUsuario tipo;
+    
+    /** Fecha en la cuál la contraseña debe ser cambiada */
+    Date vigenciaM;
+    
+    /** Indica si el usuario es permitido en el sistema  */
+    boolean estado;
+    
+    /** Campo para envío de enumerales {@link Model.TipoUsuario} */
+    TipoUsuario[] tiposUsuario;
+    
+    // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
+    
     public String getNombre() {
         return nombre;
     }
@@ -47,29 +46,34 @@ public class BeanUsuario implements Serializable {
     }
 
     public String getContrasena() {
-        return contrasena;
+        return "";
     }
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
-    public String getTipo() {
+    public TipoUsuario getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getVigenciaM() {
+    public Date getVigenciaM() {
         return vigenciaM;
     }
 
-    public void setVigenciaM(String vigenciaM) {
-        this.vigenciaM = vigenciaM;
+    public TipoUsuario[] getTiposUsuario() {
+        tiposUsuario = TipoUsuario.values();
+        return tiposUsuario;
     }
 
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setVigenciaM(Date vigenciaM) {
+        this.vigenciaM = vigenciaM;
+    }
+    
     public boolean isEstado() {
         return estado;
     }
@@ -77,9 +81,22 @@ public class BeanUsuario implements Serializable {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
+    // </editor-fold>
 
-    public LinkedList<Usuario> getListaU() throws SNMPExceptions, SQLException {
-        LinkedList<Usuario> lista = new LinkedList<Usuario>();
+    public BeanUsuario() {
+        this.estado = true;
+        this.vigenciaM = Date
+            .from(LocalDateTime.now().plusMonths(3)
+            .toInstant(
+                ZoneId.systemDefault().getRules().getOffset(Instant.now())
+            )
+        );
+    }
+    
+    /*
+    public LinkedList<Usuario> getListaUsuarios() throws SNMPExceptions, SQLException {
+        LinkedList<Usuario> lista = new LinkedList<>();
         UsuarioDB uDB = new UsuarioDB();
 
         lista = uDB.moTodo();
@@ -89,37 +106,5 @@ public class BeanUsuario implements Serializable {
         resultLista = lista;
         return resultLista;
     }
-
-    public void setListaU(LinkedList<Usuario> listaU) {
-        this.listaU = listaU;
-    }
-
-    public String login() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
-        String pagina = "index.xhtml";
-        UsuarioDB uDB = new UsuarioDB();
-        Usuario usuario = uDB.login(nombre, contrasena);
-        if (usuario == null) {
-            mensaje = "Credenciales incorrectas, usuario inexistente o usuario bloqueado";
-        } else {
-            
-            switch (usuario.getTipo()) { 
-                case ADMINISTRADOR:
-                    pagina = "MantenimientoEmpleado.xhtml";
-                    setMensaje("");
-                    break;
-                case PLANILLERO:
-                    pagina = "MantenimientoEmpleado.xhtml";
-                    setMensaje("");
-                    break;
-                case RECURSOS_HUMANOS:
-                    pagina = "MantenimientoEmpleado.xhtml";
-                    setMensaje("");
-                    break;
-                default:
-                    throw new AssertionError("Se obtuvo un entero de tipo inexistente como enumeral.");
-            }
-        }
-        return pagina;
-    }
-
+    */
 }

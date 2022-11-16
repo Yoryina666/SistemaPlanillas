@@ -33,4 +33,9 @@
         <managed-bean-class>Controller.BeanEmpleado</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>BeanIngreso</managed-bean-name>
+        <managed-bean-class>Controller.BeanIngreso</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
