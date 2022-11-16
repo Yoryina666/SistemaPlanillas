@@ -12,13 +12,13 @@ import javax.naming.NamingException;
  */
 public class BeanIngreso implements Serializable {
     
-    /** Nombre de usuario */
+    /** Nombre de usuario. */
     String nombre;
     
-    /** Contraseña secreta */
+    /** Contraseña secreta. */
     String contrasena;
     
-    /** Campo para mostrar mensaje de información */
+    /** Campo para mostrar mensaje de información. */
     String mensaje;
     
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
@@ -46,8 +46,8 @@ public class BeanIngreso implements Serializable {
     // </editor-fold>
     
     /**
-     * Se ejecuta una vez que los datos estén listos. Inicia el proceso de
-     * ingreso con las credenciales.
+     * Inicia el proceso de ingreso con las credenciales.
+     * Se ejecuta una vez que los datos estén listos.
      * @return Página hacia la cuál se debe redirigir al usuario
      * @throws SNMPExceptions
      * @throws SQLException
@@ -56,8 +56,7 @@ public class BeanIngreso implements Serializable {
      */
     public String login() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         String pagina = "index.xhtml";
-        UsuarioDB uDB = new UsuarioDB();
-        Usuario usuario = uDB.login(nombre, contrasena);
+        Usuario usuario = (new UsuarioDB()).login(nombre, contrasena);
         if (usuario == null) {
             mensaje = "Credenciales incorrectas, usuario inexistente o usuario bloqueado";
         } else {

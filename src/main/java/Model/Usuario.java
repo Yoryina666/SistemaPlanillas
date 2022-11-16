@@ -9,16 +9,16 @@ import java.util.Date;
  */
 public class Usuario {
 
-    /** Nombre del usuario */
+    /** Nombre del usuario. */
     private String nombre;
     
-    /** Tipo de usuario del enum {@link Model.TipoUsuario} */
+    /** Tipo de usuario del enum {@link Model.TipoUsuario}. */
     private TipoUsuario tipo;
     
-    /** Fecha en la cuál la contraseña debe ser cambiada */
+    /** Fecha en la cuál la contraseña debe ser cambiada. */
     private Date vigenciaM;
     
-    /** Indica si el usuario es permitido en el sistema  */
+    /** Indica si el usuario es permitido en el sistema.  */
     private boolean estado;
 
     /**
