@@ -17,22 +17,22 @@ import java.util.LinkedList;
 
 public class BeanUsuario {
     
-    /** Nombre del usuario */
+    /** Nombre del usuario. */
     String nombre;
     
-    /** Clave secreta */
+    /** Clave secreta. */
     String contrasena;
     
-    /** Tipo de usuario del enum {@link Model.TipoUsuario} */
+    /** Tipo de usuario del enum {@link Model.TipoUsuario}. */
     TipoUsuario tipo;
     
-    /** Fecha en la cuál la contraseña debe ser cambiada */
+    /** Fecha en la cuál la contraseña debe ser cambiada. */
     Date vigenciaM;
     
-    /** Indica si el usuario es permitido en el sistema  */
+    /** Indica si el usuario es permitido en el sistema.  */
     boolean estado;
     
-    /** Campo para envío de enumerales {@link Model.TipoUsuario} */
+    /** Campo para envío de enumerales {@link Model.TipoUsuario}. */
     TipoUsuario[] tiposUsuario;
     
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
