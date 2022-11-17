@@ -111,10 +111,6 @@
                             <h:outputText styleClass="Tlabel" value="Vigencia máxima de contraseña"></h:outputText>
                             <p:calendar inputStyleClass="contactus" inputStyle="text-shadow: 0px 0px 0px;" value="#{BeanUsuario.vigenciaM}"></p:calendar>
                         </div>
-                        <div class="col-md-6">
-                            <label class="contactus" for="flexCheckDefault">Estado</label>
-                            <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault" value="#{BeanUsuario.estado}"></h:selectBooleanCheckbox>
-                        </div>
                         <div class="col-md-12">
                             <h:commandButton class="send_btn" actionListener="#{BeanUsuario.cancelar()}" value="Cancelar" ></h:commandButton> 
                         </div>
@@ -137,7 +133,7 @@
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Tipo</f:facet>
-                                    #{usuario.tipo.toString()}
+                                    #{(usuario.tipo).toString()}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Vigencia</f:facet>
@@ -153,18 +149,10 @@
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Borrar</f:facet>
-                                    <h:commandButton class="send_btn" actionListener="#{BeanUsuario.borrarUsuario(usuario.nombre)}" value="Borrar"></h:commandButton>
+                                    <h:commandButton class="send_btn" actionListener="#{BeanUsuario.borrarUsuario(usuario.nombre, !usuario.estado)}" value="#{usuario.estado ? 'Desactivar' : 'Activar'}"></h:commandButton>
                                 </h:column>
                             </h:dataTable>
                         </div>
-                      
-                        <div class="col-md-12">
-                            <h:commandButton class="send_btn" value="Consultar"></h:commandButton>
-                            <br></br>
-                            <h:commandButton class="send_btn" value="Editar"></h:commandButton>
-                        </div>
-                        
-                     
                   </div>
                  
                </h:form>

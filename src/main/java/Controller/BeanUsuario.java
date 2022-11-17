@@ -29,9 +29,6 @@ public class BeanUsuario {
     /** Fecha en la cuál la contraseña debe ser cambiada. */
     Date vigenciaM;
     
-    /** Indica si el usuario es permitido en el sistema.  */
-    boolean estado;
-    
     /** Campo para envío de enumerales {@link Model.TipoUsuario}. */
     TipoUsuario[] tiposUsuario;
 
@@ -88,14 +85,6 @@ public class BeanUsuario {
         this.vigenciaM = vigenciaM;
     }
     
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-    
     public boolean isModoEdicion() {
         return modoEdicion;
     }
@@ -104,7 +93,6 @@ public class BeanUsuario {
 
     /** Crea el estado por defecto y la vigencia de hoy en 3 meses. */
     public BeanUsuario() {
-        this.estado = true;
         this.vigenciaM = Date
             .from(LocalDateTime.now().plusMonths(3)
             .toInstant(
@@ -123,7 +111,6 @@ public class BeanUsuario {
                 ZoneId.systemDefault().getRules().getOffset(Instant.now())
             )
         );
-        estado = true;
     }
     
     public void editarUsuario(Usuario usuario) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
@@ -131,13 +118,12 @@ public class BeanUsuario {
         nombre = usuario.getNombre();
         tipo = usuario.getTipo();
         vigenciaM = usuario.getVigenciaM();
-        estado = usuario.isEstado();
     }
     
     public void crearUsuario() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         UsuarioDB db = new UsuarioDB();
         Usuario usuario = new Usuario(
-            nombre, tipo, vigenciaM, estado
+            nombre, tipo, vigenciaM, true
         );
         if (modoEdicion) {
             if (contrasena.isEmpty()) db.actualizarUsuario(usuario);
@@ -148,8 +134,8 @@ public class BeanUsuario {
         cancelar();
     }
     
-    public void borrarUsuario(String nombre) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
-        (new UsuarioDB()).borrarUsuario(nombre);
+    public void borrarUsuario(String nombre, boolean estado) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        (new UsuarioDB()).borrarUsuario(nombre, estado);
     }
     
 }

@@ -71,7 +71,10 @@ public class Usuario {
     
     // </editor-fold>
     
-    /** Embellece la fecha para mostrarla en tablas. */
+    /**
+     * Embellece la fecha para mostrarla en tablas.
+     * @return String embellecida
+     */
     public String fechaFormateada() {
         return String.format("%1$tA %1$te, %1$tb %1$tY", vigenciaM);
     }

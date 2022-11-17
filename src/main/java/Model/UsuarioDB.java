@@ -34,14 +34,15 @@ public class UsuarioDB {
     
     /**
      * Borra un usuario, solo recibe el nombre del mismo.
-     * @param nombre El nombre del usuario a borrar
+     * @param nombre El nombre del usuario a borrar/re-activar
+     * @param estado El nuevo estado a cambiar
      * @throws SNMPExceptions
      * @throws SQLException
      * @throws ClassNotFoundException
      * @throws NamingException 
      */
-    public void borrarUsuario(String nombre) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
-        String query = String.format("UPDATE Usuario SET activo = 0 WHERE nombre = '%s'", nombre);
+    public void borrarUsuario(String nombre, boolean estado) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        String query = String.format("UPDATE Usuario SET activo = %d WHERE nombre = '%s'", estado ? 1 : 0, nombre);
         try {
             if (accesoDatos.ejecutaSQL(query) == 0)
                 throw new SQLException("La operación falló por motivos desconocidos");
@@ -109,7 +110,7 @@ public class UsuarioDB {
         try {
             if (accesoDatos.ejecutaSQL(query) == 0)
                 throw new SQLException("La operación falló por motivos desconocidos");
-            else if (!usuario.isEstado() || usuario.getVigenciaM().compareTo(fechaComparacion) != 0) {
+            else if (usuario.getVigenciaM().compareTo(fechaComparacion) != 0) {
                 (new UsuarioDB()).actualizarUsuario(usuario);
             }
         } catch (SQLException | SNMPExceptions | ClassNotFoundException | NamingException e) {
