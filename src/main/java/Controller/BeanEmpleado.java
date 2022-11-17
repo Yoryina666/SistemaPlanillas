@@ -23,6 +23,7 @@ public class BeanEmpleado implements Serializable{
     private short horas;
     private String jornada;
     private boolean activo;
+    private boolean editable;
     private LinkedList<Empleado> listaEmp = new LinkedList<Empleado>();
 
     public BeanEmpleado (){
@@ -102,6 +103,63 @@ public class BeanEmpleado implements Serializable{
         this.listaEmp = listaEmp;
     }
     
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+    
+    // Method - invoke Update Model -> Load Values Into Create -> Blocks Non-Editable -> Change Button Function.
+    public void invokeUpdateModel(String pcedula) throws SNMPExceptions, SQLException {
+        setEditable(true);
+        EmpleadoDB eDB = new EmpleadoDB();
+        Empleado emp = new Empleado();
+        emp = eDB.ObtenerEmpleado(pcedula);
+        cedula = emp.getCedula();
+        nombre = emp.getNombre();
+        apellido = emp.getCedula();
+        salarioBase = emp.getSalarioBase();
+        horas = emp.getHoras();
+        jornada = emp.getJornada();
+        activo = emp.isActivo();
+    }
+    // Method - invoke Update Model -> Load Values Into Create -> Blocks Non-Editable -> Change Button Function.
+    public void invokeUpdateModelEmpty(){
+        setEditable(false);
+        Empleado emp = new Empleado();
+        cedula = "";
+        nombre = "";
+        apellido = "";
+        salarioBase = 0.0;
+        horas = 0;
+        jornada = "";
+        activo = false;
+    }
+    
+    
+    // Public Void - Update Activate/Desactivate Employee.
+    public void deleteEmpleado(String cedula, boolean estado) throws SNMPExceptions, SQLException {
+        EmpleadoDB eDB = new EmpleadoDB();
+        eDB.CambiarEstadoUsuario(cedula, estado);
+        invokeUpdateModelEmpty();
+    }
+    
+    //Public Void - Create Employee.
+     public void createEmpleado(String pcedula) throws SNMPExceptions, SQLException {
+        if(this.editable){
+            Empleado emp = new Empleado(pcedula, nombre, apellido, salarioBase, horas, jornada, true);
+            EmpleadoDB eDB = new EmpleadoDB();
+            eDB.ActualizarEmpleado(emp);  
+            invokeUpdateModelEmpty();
+        } else { 
+            Empleado emp = new Empleado(cedula, nombre, apellido, salarioBase, horas, jornada, true);
+            EmpleadoDB eDB = new EmpleadoDB();
+            eDB.InsertarEmpleado(emp);  
+            invokeUpdateModelEmpty();
+        } 
+    }
     
     
 }
