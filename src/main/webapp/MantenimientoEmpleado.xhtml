@@ -94,7 +94,7 @@
                          
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Cédula"></h:outputText>
-                            <h:inputText class="contactus"  value="#{BeanEmpleado.cedula}"></h:inputText> 
+                            <h:inputText class="contactus"  value="#{BeanEmpleado.cedula}" disabled="#{BeanEmpleado.editable}"></h:inputText> 
                         </div>
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Nombre"></h:outputText>
@@ -121,9 +121,11 @@
                             <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault" value="#{BeanEmpleado.activo}"></h:selectBooleanCheckbox>
                         </div>
                         <div class="col-md-12">
-                            <h:commandButton class="send_btn" value="Crear" ></h:commandButton>
+                            <h:commandButton class="send_btn" actionListener="#{BeanEmpleado.createEmpleado(BeanEmpleado.cedula)}" value="#{BeanEmpleado.editable ? 'Editar' : 'Crear'}"></h:commandButton>
                         </div>
-                        
+                        <div class="col-md-12">
+                            <h:commandButton class="send_btn" value="Cancelar" actionListener="#{BeanEmpleado.invokeUpdateModelEmpty()}"></h:commandButton>
+                        </div>
                      </div>
                   </div>
                    <br></br>
@@ -134,30 +136,63 @@
                    
                          
                         <div>
-                            <!--
-                           <h:dataTable value="#{beanVotoUTN.listaVotos}" var="emp">
-                               
-                                <h:column>
-                                    <f:facet name="header">
-                                     <h:outputText value="Nombre"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="#"></h:outputText>
-                                </h:column>
                 
+                <h:dataTable value="#{BeanEmpleado.listaEmp}" var="emp">
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Cantidad de Votos"></h:outputText>
+                        <h:outputText value="Cedula"></h:outputText>
                     </f:facet>
-                    <h:outputText value="#{per.cantidad}"></h:outputText>
+                    <h:outputText value="#{emp.cedula}"></h:outputText>
                 </h:column>
-                
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value="Acciones"></h:outputText>
+                        <h:outputText value="Nombre"></h:outputText>
                     </f:facet>
-                    <h:commandLink value="Consultar Detalle Votos" actionListener="#{beanVotoUTN.mostrarDetalleVotos(per)}" ></h:commandLink>
+                    <h:outputText value="#{emp.nombre}"></h:outputText>
                 </h:column>
-            </h:dataTable>-->
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Apellido"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{emp.apellido}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Salario Base"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{emp.salarioBase}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Horas"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{emp.horas}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Jornada"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{emp.jornada}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Activo"></h:outputText>
+                    </f:facet>
+                    <h:outputText value="#{emp.activoParsed}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value=" - "></h:outputText>
+                    </f:facet>
+                    <h:commandButton class="send_btn" value="#{emp.activoText}" actionListener="#{BeanEmpleado.deleteEmpleado(emp.cedula, !emp.activo)}"></h:commandButton>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value=" - "></h:outputText>
+                    </f:facet>
+                    <h:commandButton class="send_btn" value="Editar" actionListener="#{BeanEmpleado.invokeUpdateModel(emp.cedula)}"></h:commandButton>
+                </h:column>
+            </h:dataTable>
                         </div>
                         
                         <div class="col-md-12">
@@ -206,4 +241,5 @@
       <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
    </h:body>
 </html>
+
 
