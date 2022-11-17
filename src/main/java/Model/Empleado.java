@@ -99,4 +99,11 @@ public class Empleado {
         return    "Inactivo";
         }
     }
+     public String getActivoText(){
+        if(activo){
+        return    "Desactivar";
+        }else{
+        return    "Reactivar";
+        }
+    }
 }
