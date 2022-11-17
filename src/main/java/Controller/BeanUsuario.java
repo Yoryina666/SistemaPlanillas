@@ -114,8 +114,7 @@ public class BeanUsuario {
     }
     
     public void cancelar() {
-        if (modoEdicion) modoEdicion = false;
-        modoEdicion = true;
+        modoEdicion = false;
         nombre = "";
         tipo = TipoUsuario.ADMINISTRADOR;
         vigenciaM = this.vigenciaM = Date
