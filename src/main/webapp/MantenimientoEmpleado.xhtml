@@ -122,9 +122,14 @@
                         </div>
                         <div class="col-md-12">
                             <h:commandButton class="send_btn" actionListener="#{BeanEmpleado.createEmpleado(BeanEmpleado.cedula)}" value="#{BeanEmpleado.editable ? 'Editar' : 'Crear'}"></h:commandButton>
+                            <br></br>
                         </div>
                         <div class="col-md-12">
                             <h:commandButton class="send_btn" value="Cancelar" actionListener="#{BeanEmpleado.invokeUpdateModelEmpty()}"></h:commandButton>
+                             <br/>
+                             <br/>
+                             <br/>
+                             <h:outputText value="#{BeanEmpleado.mensaje}" style="color: white" class="info"></h:outputText>
                         </div>
                      </div>
                   </div>
@@ -132,10 +137,10 @@
                    <br></br>
                    
                    <h2 class="titlepage">Empleados</h2>
-                  <div class="col-md-12">
+                  <div class="col-md-12 dataT">
                    
                          
-                        <div>
+                 
                 
                 <h:dataTable value="#{BeanEmpleado.listaEmp}" var="emp">
                 <h:column>
@@ -182,26 +187,18 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value=" - "></h:outputText>
+                        <h:outputText value="Borrar"></h:outputText>
                     </f:facet>
-                    <h:commandButton class="send_btn" value="#{emp.activoText}" actionListener="#{BeanEmpleado.deleteEmpleado(emp.cedula, !emp.activo)}"></h:commandButton>
+                    <h:commandButton class="botones" value="#{emp.activoText}" actionListener="#{BeanEmpleado.deleteEmpleado(emp.cedula, !emp.activo)}"></h:commandButton>
                 </h:column>
                 <h:column>
                     <f:facet name="header">
-                        <h:outputText value=" - "></h:outputText>
+                        <h:outputText value="Editar"></h:outputText>
                     </f:facet>
-                    <h:commandButton class="send_btn" value="Editar" actionListener="#{BeanEmpleado.invokeUpdateModel(emp.cedula)}"></h:commandButton>
+                    <h:commandButton class="botones" value="Editar" actionListener="#{BeanEmpleado.invokeUpdateModel(emp.cedula)}"></h:commandButton>
                 </h:column>
             </h:dataTable>
-                        </div>
-                        
-                        <div class="col-md-12">
-                            <h:commandButton class="send_btn" value="Consultar"></h:commandButton>
-                            <br></br>
-                            <h:commandButton class="send_btn" value="Editar"></h:commandButton>
-                        </div>
-                        
-                     
+                  
                   </div>
                  
                </h:form>

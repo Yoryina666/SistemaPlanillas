@@ -37,8 +37,20 @@ public class BeanUsuario {
 
     /** Indicador si está editando o creando. */
     boolean modoEdicion;
+
+    /** Despliega mensaje de validación */
+    String mensaje;
+
+    
     
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
     public LinkedList<Usuario> getListaUsuarios()  throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         listaUsuarios = (new UsuarioDB()).leerUsuarios();
@@ -111,6 +123,7 @@ public class BeanUsuario {
                 ZoneId.systemDefault().getRules().getOffset(Instant.now())
             )
         );
+        this.setMensaje("");
     }
     
     public void editarUsuario(Usuario usuario) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
@@ -125,6 +138,11 @@ public class BeanUsuario {
         Usuario usuario = new Usuario(
             nombre, tipo, vigenciaM, true
         );
+        if(this.nombre.equals("")|| this.contrasena.equals("")){
+            
+            this.setMensaje("Campos Obligatorios!");
+            
+        }else{
         if (modoEdicion) {
             if (contrasena.isEmpty()) db.actualizarUsuario(usuario);
             else db.actualizarUsuario(usuario, contrasena);
@@ -132,6 +150,8 @@ public class BeanUsuario {
             db.insertarUsuario(usuario, contrasena);
         }
         cancelar();
+        }
+        
     }
     
     public void borrarUsuario(String nombre, boolean estado) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {

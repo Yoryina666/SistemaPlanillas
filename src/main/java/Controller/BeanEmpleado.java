@@ -24,6 +24,7 @@ public class BeanEmpleado implements Serializable{
     private String jornada;
     private boolean activo;
     private boolean editable;
+    private String mensaje;
     private LinkedList<Empleado> listaEmp = new LinkedList<Empleado>();
 
     public BeanEmpleado (){
@@ -86,6 +87,14 @@ public class BeanEmpleado implements Serializable{
         this.activo = activo;
     }
 
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
     public LinkedList<Empleado> getListaEmp() throws SNMPExceptions, SQLException {
       LinkedList<Empleado> lista = new 
                     LinkedList<Empleado>();
@@ -136,6 +145,7 @@ public class BeanEmpleado implements Serializable{
         horas = 0;
         jornada = "";
         activo = false;
+        mensaje = "";
     }
     
     
@@ -148,6 +158,12 @@ public class BeanEmpleado implements Serializable{
     
     //Public Void - Create Employee.
      public void createEmpleado(String pcedula) throws SNMPExceptions, SQLException {
+        if(this.nombre.equals("")|| this.cedula.equals("") || this.apellido.equals("") || this.jornada.equals("")){
+            
+            this.setMensaje("Campos Obligatorios!");
+            
+        }
+        else{
         if(this.editable){
             Empleado emp = new Empleado(pcedula, nombre, apellido, salarioBase, horas, jornada, true);
             EmpleadoDB eDB = new EmpleadoDB();
@@ -159,6 +175,8 @@ public class BeanEmpleado implements Serializable{
             eDB.InsertarEmpleado(emp);  
             invokeUpdateModelEmpty();
         } 
+        }
+        
     }
     
     

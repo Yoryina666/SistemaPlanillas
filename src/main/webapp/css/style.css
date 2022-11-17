@@ -400,13 +400,13 @@ button {
 }
 
 .main_form .send_btn {
-     font-size: 17px;
+     font-size: 13px;
      transition: ease-in all 0.5s;
      background-color: rgb(10, 10, 48) ;
      color: #fff;
-     padding: 13px 0px;
+     padding: 8px 0px;
      margin: 0 auto;
-     max-width: 200px;
+     max-width: 100px;
      width: 100%;
      display: block;
      font-weight: 500;
@@ -420,6 +420,34 @@ button {
      color: #000;
 }
 
+.botones{
+    font-size: 10px;
+     transition: ease-in all 0.5s;
+     background-color: rgb(10, 10, 48) ;
+     color: #fff;
+     padding: 5px 0px;
+     margin: 0 auto;
+     max-width: 100px;
+     width: 100%;
+     display: block;
+     font-weight: 500;
+     text-transform: uppercase;
+     border-radius: 35px;
+}
+
+.botones:hover {
+     background-color: white;
+     transition: ease-in all 0.5s;
+     color: #000;
+}
+
+.info{
+     margin: 0 auto;
+     max-width: 200px;
+     display: block;
+     font-weight: 500;
+     text-align: right;
+}
 #request *::placeholder {
      color: #fbfaf8;
      opacity: 1;
@@ -430,7 +458,17 @@ button {
      width: 200px;
      margin-left: 35%;
 }
-     
+table tr{
+   border: darkgray 2px  solid ;
+}
+table, thead, tbody,tr,td{
+    
+    color: white;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px;
+    
+}
 
 /** end banner section **/
 
