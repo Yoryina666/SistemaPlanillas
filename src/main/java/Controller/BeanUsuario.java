@@ -13,7 +13,10 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
+import javax.faces.model.SelectItem;
+import javax.naming.NamingException;
 
 public class BeanUsuario {
     
@@ -34,9 +37,46 @@ public class BeanUsuario {
     
     /** Campo para envío de enumerales {@link Model.TipoUsuario}. */
     TipoUsuario[] tiposUsuario;
-    
+   /** Lista que muestra a los usuarios agregados */
+    LinkedList<Usuario> listaUsuario = new LinkedList<Usuario>(); 
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
     
+
+    public LinkedList<Usuario> getListaUsuario() throws SQLException, SNMPExceptions, ClassNotFoundException, NamingException {
+         LinkedList<Usuario> lista = new LinkedList<Usuario>();
+        String nombre="";
+        String contrasena="";
+        TipoUsuario tipo;
+        Date vigencia;
+        boolean estado=false;
+        
+        
+        UsuarioDB uDB = new UsuarioDB();
+        
+        lista = uDB.leerUsuarios();
+        
+        LinkedList  resultList = new LinkedList();
+        
+        
+        for (Iterator iter= lista.iterator();
+                iter.hasNext();) {
+        
+                Usuario user = (Usuario) iter.next();
+                nombre=user.getNombre();
+                tipo=user.getTipo();
+                vigencia= user.getVigenciaM();
+                estado= user.isEstado();
+                resultList.add(nombre);
+                resultList.add(tipo);
+                resultList.add(vigencia);
+                resultList.add(estado);
+            }         
+            return resultList; 
+    }
+
+    public void setListaUsuario(LinkedList<Usuario> listaUsuario) {
+        this.listaUsuario = listaUsuario;
+    }
     public String getNombre() {
         return nombre;
     }
