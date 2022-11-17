@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controller;
 
 import DAO.SNMPExceptions;
@@ -17,6 +13,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import javax.naming.NamingException;
 
+/**
+ * @author Aylan Miranda
+ */
 public class BeanUsuario {
     
     /** Nombre del usuario. */
@@ -36,45 +35,22 @@ public class BeanUsuario {
     
     /** Campo para envío de enumerales {@link Model.TipoUsuario}. */
     TipoUsuario[] tiposUsuario;
-   /** Lista que muestra a los usuarios agregados */
-    LinkedList<Usuario> listaUsuario = new LinkedList<Usuario>(); 
-    // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
-    
 
-    public LinkedList<Usuario> getListaUsuario() throws SQLException, SNMPExceptions, ClassNotFoundException, NamingException {
-         LinkedList<Usuario> lista = new LinkedList<Usuario>();
-        String nombre="";
-        String contrasena="";
-        TipoUsuario tipo;
-        Date vigencia;
-        boolean estado=false;
-        
-        
-        UsuarioDB uDB = new UsuarioDB();
-        
-        lista = uDB.leerUsuarios();
-        
-        LinkedList  resultList = new LinkedList();
-        
-        
-        for (Iterator iter= lista.iterator();
-                iter.hasNext();) {
-        
-                Usuario user = (Usuario) iter.next();
-                nombre=user.getNombre();
-                tipo=user.getTipo();
-                vigencia= user.getVigenciaM();
-                estado= user.isEstado();
-                resultList.add(nombre);
-                resultList.add(tipo);
-                resultList.add(vigencia);
-                resultList.add(estado);
-            }         
-            return resultList; 
+    /** Lista con los usuarios del sistema. */
+    LinkedList<Usuario> listaUsuarios = new LinkedList<Usuario>();
+
+    /** Indicador si está editando o creando. */
+    boolean modoEdicion;
+
+    // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
+
+    public LinkedList<Usuario> getListaUsuarios()  throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        listaUsuarios = (new UsuarioDB()).leerUsuarios();
+        return listaUsuarios;
     }
 
-    public void setListaUsuario(LinkedList<Usuario> listaUsuario) {
-        this.listaUsuario = listaUsuario;
+    public void setListaUsuarios(LinkedList<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
     public String getNombre() {
         return nombre;
@@ -121,8 +97,13 @@ public class BeanUsuario {
         this.estado = estado;
     }
     
+    public boolean isModoEdicion() {
+        return modoEdicion;
+    }
+
     // </editor-fold>
 
+    /** Crea el estado por defecto y la vigencia de hoy en 3 meses. */
     public BeanUsuario() {
         this.estado = true;
         this.vigenciaM = Date
@@ -132,18 +113,5 @@ public class BeanUsuario {
             )
         );
     }
-    
-    /*
-    public LinkedList<Usuario> getListaUsuarios() throws SNMPExceptions, SQLException {
-        LinkedList<Usuario> lista = new LinkedList<>();
-        UsuarioDB uDB = new UsuarioDB();
 
-        lista = uDB.moTodo();
-
-        LinkedList resultLista = new LinkedList();
-
-        resultLista = lista;
-        return resultLista;
-    }
-    */
 }

@@ -116,46 +116,45 @@
                             <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault" value="#{BeanUsuario.estado}"></h:selectBooleanCheckbox>
                         </div>
                         <div class="col-md-12">
-                            <h:commandButton class="send_btn" value="Crear" ></h:commandButton>
-                            <h:inputTextarea class="contactus" disabled="true" value="#{BeanUsuario.listaUsuario}"></h:inputTextarea> 
+                            <h:commandButton class="send_btn" actionListener="#{BeanUsuario.crearUsuario()}" value="Crear" ></h:commandButton> 
                         </div>
 
                      </div>
-                  </div>
-                   <br></br>
-                   <br></br>
+                    </div>
+                    <br></br>
+                    <br></br>
                    
-                   <h2 class="titlepage">Usuarios</h2>
-                  <div class="col-md-12">
-                   
-                         
+                    <h2 class="titlepage">Usuarios</h2>
+                    <div class="col-md-12">
                         <div>
-                            <!--
-                           <h:dataTable value="#{beanVotoUTN.listaVotos}" var="emp">
-                               
+                            <h:dataTable value="#{BeanUsuario.listaUsuarios}" var="usuario">
                                 <h:column>
-                                    <f:facet name="header">
-                                     <h:outputText value="Nombre"></h:outputText>
-                                    </f:facet>
-                                    <h:outputText value="#"></h:outputText>
+                                    <f:facet name="header">Nombre</f:facet>
+                                    #{usuario.nombre}
                                 </h:column>
-                
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Cantidad de Votos"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="#{per.cantidad}"></h:outputText>
-                </h:column>
-                
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Acciones"></h:outputText>
-                    </f:facet>
-                    <h:commandLink value="Consultar Detalle Votos" actionListener="#{beanVotoUTN.mostrarDetalleVotos(per)}" ></h:commandLink>
-                </h:column>
-            </h:dataTable>-->
+                                <h:column>
+                                    <f:facet name="header">Tipo</f:facet>
+                                    #{usuario.tipo.toString()}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Vigencia</f:facet>
+                                    #{usuario.fechaFormateada()}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Estado</f:facet>
+                                    #{usuario.estado ? "Activo" : "Inactivo"}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Editar</f:facet>
+                                    <h:commandButton class="send_btn" actionListener="#{BeanUsuario.editarUsuario(usuario)}" value="Editar"></h:commandButton>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Borrar</f:facet>
+                                    <h:commandButton class="send_btn" actionListener="#{BeanUsuario.borrarUsuario(usuario.nombre)}" value="Borrar"></h:commandButton>
+                                </h:column>
+                            </h:dataTable>
                         </div>
-                        
+                      
                         <div class="col-md-12">
                             <h:commandButton class="send_btn" value="Consultar"></h:commandButton>
                             <br></br>
