@@ -9,7 +9,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import javax.naming.NamingException;
 
@@ -37,11 +36,11 @@ public class BeanUsuario {
     TipoUsuario[] tiposUsuario;
 
     /** Lista con los usuarios del sistema. */
-    LinkedList<Usuario> listaUsuarios = new LinkedList<Usuario>();
+    LinkedList<Usuario> listaUsuarios = new LinkedList<>();
 
     /** Indicador si está editando o creando. */
     boolean modoEdicion;
-
+    
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
 
     public LinkedList<Usuario> getListaUsuarios()  throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
@@ -113,5 +112,45 @@ public class BeanUsuario {
             )
         );
     }
-
+    
+    public void cancelar() {
+        if (modoEdicion) modoEdicion = false;
+        modoEdicion = true;
+        nombre = "";
+        tipo = TipoUsuario.ADMINISTRADOR;
+        vigenciaM = this.vigenciaM = Date
+            .from(LocalDateTime.now().plusMonths(3)
+            .toInstant(
+                ZoneId.systemDefault().getRules().getOffset(Instant.now())
+            )
+        );
+        estado = true;
+    }
+    
+    public void editarUsuario(Usuario usuario) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        modoEdicion = true;
+        nombre = usuario.getNombre();
+        tipo = usuario.getTipo();
+        vigenciaM = usuario.getVigenciaM();
+        estado = usuario.isEstado();
+    }
+    
+    public void crearUsuario() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        UsuarioDB db = new UsuarioDB();
+        Usuario usuario = new Usuario(
+            nombre, tipo, vigenciaM, estado
+        );
+        if (modoEdicion) {
+            if (contrasena.isEmpty()) db.actualizarUsuario(usuario);
+            else db.actualizarUsuario(usuario, contrasena);
+        } else {
+            db.insertarUsuario(usuario, contrasena);
+        }
+        cancelar();
+    }
+    
+    public void borrarUsuario(String nombre) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        (new UsuarioDB()).borrarUsuario(nombre);
+    }
+    
 }

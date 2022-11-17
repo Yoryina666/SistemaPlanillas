@@ -41,7 +41,7 @@ public class UsuarioDB {
      * @throws NamingException 
      */
     public void borrarUsuario(String nombre) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
-        String query = String.format("DELETE FROM Usuario WHERE nombre = '%s'", nombre);
+        String query = String.format("UPDATE Usuario SET activo = 0 WHERE nombre = '%s'", nombre);
         try {
             if (accesoDatos.ejecutaSQL(query) == 0)
                 throw new SQLException("La operación falló por motivos desconocidos");
@@ -78,21 +78,18 @@ public class UsuarioDB {
         String query;
         if (contrasena != null) {
             query = String.format(
-                "UPDATE Usuario SET contrasena = dbo.ENCRIPTAR_PASS('%s'), tipo = %d, vigenciaMaxima = CONVERT(DATE, '%tD', 101), activo = %d WHERE nombre = '%s'",
+                "UPDATE Usuario SET contrasena = dbo.ENCRIPTAR_PASS('%s'), tipo = %d, vigenciaMaxima = CONVERT(DATE, '%tD', 1), activo = %d WHERE nombre = '%s'",
                 contrasena, usuario.getTipo().ordinal(), usuario.getVigenciaM(), usuario.isEstado() ? 1 : 0, usuario.getNombre()
             );
         } else {
             query = String.format(
-                "UPDATE Usuario SET, tipo = %d, vigenciaMaxima = CONVERT(DATE, '%tD', 101), activo = %d WHERE nombre = '%s'",
+                "UPDATE Usuario SET tipo = %d, vigenciaMaxima = CONVERT(DATE, '%tD', 1), activo = %d WHERE nombre = '%s'",
                 usuario.getTipo().ordinal(), usuario.getVigenciaM(), usuario.isEstado() ? 1 : 0, usuario.getNombre()
             );
         }
         try {
             if (accesoDatos.ejecutaSQL(query) == 0)
                 throw new SQLException("La operación falló por motivos desconocidos");
-            else if (!usuario.isEstado() || usuario.getVigenciaM().compareTo(fechaComparacion) != 0) {
-                (new UsuarioDB()).actualizarUsuario(usuario);
-            }
         } catch (SQLException | SNMPExceptions | ClassNotFoundException | NamingException e) {
             throw e;
         }
@@ -108,7 +105,7 @@ public class UsuarioDB {
      * @throws NamingException 
      */
     public void insertarUsuario(Usuario usuario, String contrasena) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
-        String query = String.format("EXEC dbo.CREATE_USER '%s' '%s'", usuario.getNombre(), contrasena);
+        String query = String.format("EXEC dbo.CREATE_USER '%s', '%s', %d", usuario.getNombre(), contrasena, usuario.getTipo().ordinal());
         try {
             if (accesoDatos.ejecutaSQL(query) == 0)
                 throw new SQLException("La operación falló por motivos desconocidos");

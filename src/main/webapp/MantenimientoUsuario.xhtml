@@ -95,7 +95,7 @@
                          
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Nombre de usuario"></h:outputText>
-                            <h:inputText class="contactus" value="#{BeanUsuario.nombre}"></h:inputText> 
+                            <h:inputText class="contactus" readonly="#{BeanUsuario.modoEdicion}" value="#{BeanUsuario.nombre}"></h:inputText> 
                         </div>
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Contraseña"></h:outputText>
@@ -116,7 +116,10 @@
                             <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault" value="#{BeanUsuario.estado}"></h:selectBooleanCheckbox>
                         </div>
                         <div class="col-md-12">
-                            <h:commandButton class="send_btn" actionListener="#{BeanUsuario.crearUsuario()}" value="Crear" ></h:commandButton> 
+                            <h:commandButton class="send_btn" actionListener="#{BeanUsuario.cancelar()}" value="Cancelar" ></h:commandButton> 
+                        </div>
+                        <div class="col-md-12">
+                            <h:commandButton class="send_btn" actionListener="#{BeanUsuario.crearUsuario()}" value="#{BeanUsuario.modoEdicion ? 'Editar' : 'Crear'}" ></h:commandButton> 
                         </div>
 
                      </div>
