@@ -47,9 +47,10 @@ public class EmpleadoDB {
         try {
             Empleado empleadoSQL = pEmpleado;
             
-            strSQL = "UPDATE Empleado (cedula, nombre, apellido, salarioBase, horas, jornada) SET " + 
-                    "('" + empleadoSQL.getCedula() + "', '" + empleadoSQL.getNombre() + "', '" + empleadoSQL.getApellido() + 
-                    "', " + empleadoSQL.getSalarioBase() + ", " + empleadoSQL.getHoras() +  ", '" + empleadoSQL.getJornada() + ")";
+            strSQL = "UPDATE Empleado SET " + 
+                    "nombre = '" + empleadoSQL.getNombre() + "', apellido = '" + empleadoSQL.getApellido() + 
+                    "', salarioBase = " + empleadoSQL.getSalarioBase() + ", horas = " + empleadoSQL.getHoras() +  ", jornada = '" + empleadoSQL.getJornada() + 
+                    "' WHERE cedula = '" + empleadoSQL.getCedula() + "'";
             
             accesoDatos.ejecutaSQL(strSQL);
          } catch (SQLException e) {
@@ -63,7 +64,7 @@ public class EmpleadoDB {
     
     public void CambiarEstadoUsuario(String cedula, boolean estado) throws SNMPExceptions{
          String strSQL = "";
-         char Estado;
+         int Estado;
          if(estado){
              Estado = 1; //Reactivar Usuario 0 -> 1
          }else {
