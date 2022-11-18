@@ -62,7 +62,7 @@ public class BeanIngreso implements Serializable {
         } else {
             switch (usuario.getTipo()) { 
                 case ADMINISTRADOR:
-                    pagina = "MantenimientoUsuario.xhtml";
+                    pagina = "Bienvenida.xhtml";
                     break;
                 case PLANILLERO:
                     pagina = "MantenimientoUsuario.xhtml";
