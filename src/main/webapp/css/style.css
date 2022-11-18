@@ -329,6 +329,25 @@ button {
      padding: 20px 0px 90px 0px;
      
 }
+.fondo{
+    background: url(../images/bannerBienvenida.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+    
+}
+
+.bienvenida {
+    background-color: rgba(11, 11, 11, 0.61);
+    margin-top: 250px;
+    height: 400px;
+    color:white;
+}
+
+.tituloB{
+    color:white;
+    height: 30px;
+}
 
 .text-bg {
      text-align: left;
