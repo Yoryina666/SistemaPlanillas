@@ -139,65 +139,44 @@
                    <h2 class="titlepage">Empleados</h2>
                   <div class="col-md-12 dataT">
                    
-                         
-                 
-                
-                <h:dataTable value="#{BeanEmpleado.listaEmp}" var="emp">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Cedula"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="#{emp.cedula}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Nombre"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="#{emp.nombre}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Apellido"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="#{emp.apellido}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Salario Base"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="#{emp.salarioBase}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Horas"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="#{emp.horas}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText value="Jornada"></h:outputText>
-                    </f:facet>
-                    <h:outputText value="#{emp.jornada}"></h:outputText>
-                </h:column>
-                <h:column>
+                    <h:dataTable value="#{BeanEmpleado.listaEmp}" var="emp">
+                    <h:column>
+                        <f:facet name="header">Cédula</f:facet>#{emp.cedula}
+                    </h:column>
+                    <h:column>
+                     <f:facet name="header">Nombre</f:facet>#{emp.nombre}
+                    </h:column>
+                    <h:column>
+                     <f:facet name="header">Apellidos</f:facet>#{emp.apellido}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" class="salarioB">Salario base&nbsp;&nbsp;&nbsp;</f:facet>#{emp.salarioBase}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Horas&nbsp;&nbsp;&nbsp;</f:facet>#{emp.horas}
+                    </h:column>
+                    <h:column>
+                     <f:facet name="header">Jornada</f:facet>#{emp.jornada}
+                    </h:column>
+                    <h:column>
                     <f:facet name="header">
                         <h:outputText value="Activo"></h:outputText>
                     </f:facet>
-                    <h:outputText value="#{emp.activoParsed}"></h:outputText>
-                </h:column>
-                <h:column>
+                        <h:outputText value="#{emp.activoParsed}"></h:outputText>
+                    </h:column>
+                    <h:column>
                     <f:facet name="header">
                         <h:outputText value="Borrar"></h:outputText>
                     </f:facet>
-                    <h:commandButton class="botones" value="#{emp.activoText}" actionListener="#{BeanEmpleado.deleteEmpleado(emp.cedula, !emp.activo)}"></h:commandButton>
-                </h:column>
-                <h:column>
+                        <h:commandButton class="botones" value="#{emp.activoText}" actionListener="#{BeanEmpleado.deleteEmpleado(emp.cedula, !emp.activo)}"></h:commandButton>
+                    </h:column>
+                    <h:column>
                     <f:facet name="header">
                         <h:outputText value="Editar"></h:outputText>
                     </f:facet>
                     <h:commandButton class="botones" value="Editar" actionListener="#{BeanEmpleado.invokeUpdateModel(emp.cedula)}"></h:commandButton>
-                </h:column>
-            </h:dataTable>
+                        </h:column>
+                    </h:dataTable>
                   
                   </div>
                  
