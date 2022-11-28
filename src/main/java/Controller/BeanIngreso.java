@@ -3,8 +3,11 @@ package Controller;
 import DAO.SNMPExceptions;
 import Model.Usuario;
 import Model.UsuarioDB;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 
 /**
@@ -20,6 +23,9 @@ public class BeanIngreso implements Serializable {
     
     /** Campo para mostrar mensaje de información. */
     String mensaje;
+    
+    /** Usuario logeado en el sistema. */
+    Usuario usuario;
     
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
     
@@ -42,40 +48,76 @@ public class BeanIngreso implements Serializable {
     public String getMensaje() {
         return mensaje;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     
     // </editor-fold>
     
     /**
-     * Inicia el proceso de ingreso con las credenciales.
-     * Se ejecuta una vez que los datos estén listos.
-     * @return Página hacia la cuál se debe redirigir al usuario
+     * Define si se le permite ir al Mantenimiento de Empleados.
+     * @return Booleano indicando el permiso
+     */
+    public boolean empleadosAllowed() {
+        if (usuario == null) return true; //Esto solo sucede si estamos en el IDE
+        switch (usuario.getTipo()) {
+            case ADMINISTRADOR:
+            case RECURSOS_HUMANOS:
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    /**
+     * Define si se le permite ir al Mantenimiento de Usuarios.
+     * @return Booleano indicando el permiso
+     */
+    public boolean usuariosAllowed() {
+        if (usuario == null) return true; //Esto solo sucede si estamos en el IDE
+        switch (usuario.getTipo()) {
+            case ADMINISTRADOR:
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    /**
+     * Define si se le permite ir al Sistema de Planillas.
+     * @return Booleano indicando el permiso
+     */
+    public boolean planillasAllowed() {
+        if (usuario == null) return true; //Esto solo sucede si estamos en el IDE
+        switch (usuario.getTipo()) {
+            case ADMINISTRADOR:
+            case PLANILLERO:
+                return true;
+            default:
+                return false;
+        }
+    }
+    
+    /**
+     * Inicia el proceso de ingreso con las credenciales.Se ejecuta una vez que los datos estén listos.
      * @throws SNMPExceptions
      * @throws SQLException
      * @throws ClassNotFoundException
      * @throws NamingException 
+     * @throws java.io.IOException 
      */
-    public String login() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
-        String pagina = "index.xhtml";
-        Usuario usuario = (new UsuarioDB()).login(nombre, contrasena);
-        if (usuario == null) {
-            mensaje = "Credenciales incorrectas, usuario inexistente o usuario bloqueado";
-        } else {
-            switch (usuario.getTipo()) { 
-                case ADMINISTRADOR:
-                    pagina = "Bienvenida.xhtml";
-                    break;
-                case PLANILLERO:
-                    pagina = "MantenimientoUsuario.xhtml";
-                    break;
-                case RECURSOS_HUMANOS:
-                    pagina = "MantenimientoEmpleado.xhtml";
-                    break;
-                default:
-                    throw new AssertionError("Se obtuvo un entero de tipo inexistente como enumeral.");
-            }
-            mensaje = "";
-        }
-        return pagina;
+    public void login() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException, IOException {
+        usuario = (new UsuarioDB()).login(nombre, contrasena);
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        context.getApplicationMap().put("usuario", usuario);
+        mensaje = usuario == null ? "Credenciales incorrectas, usuario inexistente o usuario bloqueado" : "";
+        context.redirect(usuario == null ? "index.xhtml" : "Bienvenida.xhtml");
+        context.responseFlushBuffer();
     }
     
 }

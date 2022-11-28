@@ -66,7 +66,7 @@
                        
                         <div class="col-md-12">
                             <h:inputTextarea class="contactus" disabled="true" value="#{BeanIngreso.mensaje}"></h:inputTextarea> 
-                            <h:commandButton class="send_btn" action="#{BeanIngreso.login()}" value="Iniciar Sesión"></h:commandButton>
+                            <h:commandButton class="send_btn" actionListener="#{BeanIngreso.login()}" value="Iniciar Sesión"></h:commandButton>
                         </div>
                      </div>
                   </div>
