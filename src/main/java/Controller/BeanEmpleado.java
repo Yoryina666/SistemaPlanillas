@@ -7,9 +7,11 @@ package Controller;
 import DAO.SNMPExceptions;
 import Model.Empleado;
 import Model.EmpleadoDB;
+import Model.TipoJornada;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -95,6 +97,13 @@ public class BeanEmpleado implements Serializable{
         this.mensaje = mensaje;
     }
 
+     public LinkedList<SelectItem> getListaJornadas() {            
+        LinkedList ListaConsulta = new LinkedList();
+        ListaConsulta.add(new SelectItem(TipoJornada.QUINCENAL.toString()));
+        ListaConsulta.add(new SelectItem(TipoJornada.SEMANAL.toString()));
+        return ListaConsulta;
+    }
+     
     public LinkedList<Empleado> getListaEmp() throws SNMPExceptions, SQLException {
       LinkedList<Empleado> lista = new 
                     LinkedList<Empleado>();
@@ -158,12 +167,13 @@ public class BeanEmpleado implements Serializable{
     
     //Public Void - Create Employee.
      public void createEmpleado(String pcedula) throws SNMPExceptions, SQLException {
-        if(this.nombre.equals("")|| this.cedula.equals("") || this.apellido.equals("") || this.jornada.equals("")){
+        if(this.nombre.equals("")|| this.cedula.equals("") || this.apellido.equals("")){
             
             this.setMensaje("Campos Obligatorios!");
             
         }
         else{
+            
         if(this.editable){
             Empleado emp = new Empleado(pcedula, nombre, apellido, salarioBase, horas, jornada, true);
             EmpleadoDB eDB = new EmpleadoDB();
