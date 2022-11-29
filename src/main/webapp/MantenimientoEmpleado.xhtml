@@ -118,7 +118,9 @@
                         </div>
                         <div class="col-md-6">
                              <h:outputText styleClass="Tlabel" value="Jornada"></h:outputText>
-                             <h:inputText class="contactus" label="Jornada" value="#{BeanEmpleado.jornada}"></h:inputText> 
+                             <h:selectOneMenu onchange="" value="#{BeanEmpleado.jornada}">
+                                 <f:selectItems value="#{BeanEmpleado.getListaJornadas()}"/>
+                             </h:selectOneMenu> 
                         </div>
                         <div class="col-md-6">
                             <label class="contactus" for="flexCheckDefault">Activo</label>
