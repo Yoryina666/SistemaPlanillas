@@ -136,11 +136,9 @@ public class BeanUsuario {
         Usuario usuario = new Usuario(
             nombre, tipo, vigenciaM, true
         );
-        if(this.nombre.equals("")|| this.contrasena.equals("")){
-            
+        if(this.nombre.equals("") || this.contrasena.equals("") && !modoEdicion){
             this.setMensaje("Campos Obligatorios!");
-            
-        }else{
+        } else {
         if (modoEdicion) {
             if (contrasena.isEmpty()) db.actualizarUsuario(usuario);
             else db.actualizarUsuario(usuario, contrasena);

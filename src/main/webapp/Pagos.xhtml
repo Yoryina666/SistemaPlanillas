@@ -116,7 +116,7 @@
                             
                         </div>
                         <div class="col-md-12 ">
-                            <h:commandButton styleClass="send_btn"  value="#{BeanPago.modoEdicion ? 'Editar' : 'Crear'}" ></h:commandButton> 
+                            <h:commandButton styleClass="send_btn"  value="#{BeanPagos.modoEdicion ? 'Editar' : 'Crear'}" actionListener="#{BeanPagos.modoEdicion ? BeanPagos.actualizarPago() : BeanPagos.crearPago() }" ></h:commandButton> 
                              <br/>
                              <br/>
                              <br/>
@@ -133,30 +133,26 @@
                      <h2 class="titlepage">Pagos</h2>
                     <div class="col-md-12 dataT">
                         
-                            <h:dataTable value="" var="">
+                        <h:dataTable value="#{BeanPagos.listaPagos}" var="pago">
                                 <h:column>
                                     <f:facet name="header">Nombre</f:facet>
-                                    
+                                    #{pago.nombre}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Descripción</f:facet>
-                                    
+                                    #{pago.descripcion}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Porcentaje</f:facet>
-                                    
+                                    #{pago.porcentaje}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Automático</f:facet>
-                                   
+                                    #{pago.automatico}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Editar</f:facet>
-                                    <h:commandButton class="botones"  value="Editar"></h:commandButton>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Borrar</f:facet>
-                                    <h:commandButton class="botones"  value="Borrar"></h:commandButton>
+                                    <h:commandButton class="botones"  value="Editar" actionListener="#{BeanPagos.editarPago(pago)}"></h:commandButton>
                                 </h:column>
                             </h:dataTable>
                         
