@@ -38,10 +38,8 @@ public class BeanUsuario {
     /** Indicador si está editando o creando. */
     boolean modoEdicion;
 
-    /** Despliega mensaje de validación */
+    /** Despliega mensaje de validación. */
     String mensaje;
-
-    
     
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
     public String getMensaje() {

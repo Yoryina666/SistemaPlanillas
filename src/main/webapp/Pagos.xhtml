@@ -95,32 +95,32 @@
                          
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Nombre"></h:outputText>
-                            <h:inputText class="contactus" readonly="#{BeanUsuario.modoEdicion}"></h:inputText> 
+                            <h:inputText class="contactus" readonly="#{BeanPagos.modoEdicion}" value="#{BeanPagos.nombre}"></h:inputText> 
                         </div>
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Descripcion"></h:outputText>
-                           <h:inputText class="contactus" readonly="#{BeanUsuario.modoEdicion}"></h:inputText> 
+                           <h:inputText class="contactus" value="#{BeanPagos.descripcion}"></h:inputText> 
                         </div>
                          <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Porcentaje"></h:outputText>
-                            <h:inputText class="contactus" readonly="#{BeanUsuario.modoEdicion}"></h:inputText> 
+                            <h:inputText class="contactus" value="#{BeanPagos.porcentaje}"></h:inputText> 
                         </div>
                         
                         <div class="col-md-6">
                             <label class="contactus" for="flexCheckDefault">Automático</label>
-                            <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault"></h:selectBooleanCheckbox>
+                            <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault" value="#{BeanPagos.automatico}"></h:selectBooleanCheckbox>
                         </div>
                         <div class="col-md-12">
-                            <h:commandButton class="send_btn" actionListener="#{BeanUsuario.cancelar()}" value="Cancelar" ></h:commandButton>
+                            <h:commandButton class="send_btn" actionListener="#{BeanPagos.cancelar()}" value="Cancelar" ></h:commandButton>
                             <br></br>
                             
                         </div>
                         <div class="col-md-12 ">
-                            <h:commandButton styleClass="send_btn"  value="#{BeanUsuario.modoEdicion ? 'Editar' : 'Crear'}" ></h:commandButton> 
+                            <h:commandButton styleClass="send_btn"  value="#{BeanPago.modoEdicion ? 'Editar' : 'Crear'}" ></h:commandButton> 
                              <br/>
                              <br/>
                              <br/>
-                             <h:outputText value="#{BeanUsuario.mensaje}" style="color: white" class="info"></h:outputText>
+                             <h:outputText value="#{BeanPagos.mensaje}" style="color: white" class="info"></h:outputText>
                         </div>
                          
                          
