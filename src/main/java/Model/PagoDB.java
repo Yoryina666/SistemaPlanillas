@@ -87,5 +87,27 @@ public class PagoDB {
             return listaPagos;
         }
     }
+     public LinkedList<Pago> leerPagosAutomaticos() throws SQLException, SNMPExceptions, ClassNotFoundException, NamingException {
+        LinkedList<Pago> listaPagos = new LinkedList<>();
+        String query = "SELECT nombre Nombre, descripcion, Descripcion, porcentaje Porcentaje, automatico Automatico FROM CategoriaPago WHERE Automatico = 1";
+        try (
+                ResultSet rs = accesoDatos.ejecutaSQLRetornaRS(query)
+            ) {
+            while (rs.next()) {
+                listaPagos.add(
+                    new Pago(
+                        rs.getString("Nombre"),
+                        rs.getString("Descripcion"),
+                        rs.getBoolean("Automatico"),
+                        rs.getDouble("Porcentaje")
+                    )
+                );
+            }
+        } catch (SQLException | SNMPExceptions | ClassNotFoundException | NamingException e) {
+            throw e;
+        } finally {
+            return listaPagos;
+        }
+    }
     
 }
