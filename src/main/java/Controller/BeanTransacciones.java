@@ -141,14 +141,24 @@ public class BeanTransacciones {
     
     public void empleadoCambia() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         listaTransacciones = (new DetalleDB()).leerDetalles(planilla.getPlanillaID(), empleado.getCedula());
+        montoHora = empleado.getSalarioBase() / empleado.getHoras();
+        float montoDeducciones = 0;
+        for (Detalle detalle : listaTransacciones) {
+            if (detalle.getMonto() > 0) montoBruto += detalle.getMonto();
+            else montoDeducciones += detalle.getMonto();
+        }
+        montoNeto = montoBruto + montoDeducciones;
     }
     
     public void agregarDetalle() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         if(regexNumero.matcher(monto).matches()){
             this.setMensaje("Campos Obligatorios!");
         } else {
-            Detalle detalle = new Detalle("", agregandoPago ? pago.getNombre() : deduccion.getNombre(), Double.parseDouble(monto));
+            Detalle detalle = new Detalle("", agregandoPago ? pago.getNombre() : deduccion.getNombre(), 0);
+            if (agregandoPago) detalle.setMonto(Double.parseDouble(monto) * montoHora * pago.getPorcentaje());
+            else detalle.setMonto(-(deduccion.isPorcentual() ? montoBruto * (deduccion.getMonto() / 100) : deduccion.getMonto()));
             (new DetalleDB()).insertarDetalle(detalle, planilla.getPlanillaID(), empleado.getCedula());
+            empleadoCambia();
         }
     }
     
