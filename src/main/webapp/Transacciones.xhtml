@@ -126,18 +126,18 @@
                         </div>
                          <div class="col-md-6" style="display: #{BeanTransacciones.agregandoPago ? 'box' : 'none'}">
                             <h:outputText styleClass="Tlabel" value="Elegir categoria de pago"></h:outputText>
-                            <h:selectOneMenu class="contactus dropList" value="#{BeanTransacciones.pago}">
-                                <f:selectItems value="#{BeanTransacciones.listaPagos}"/>
+                            <h:selectOneMenu class="contactus dropList" >
+                                <f:selectItems  />
                             </h:selectOneMenu>
                             <h:outputText styleClass="Tlabel" value="Horas para esta categoria"></h:outputText>
-                            <h:inputText class="contactus" value="#{BeanTransacciones.monto}"></h:inputText> 
+                            <h:inputText class="contactus" readonly="" value=""></h:inputText> 
                             <br></br>
                             
                         </div>
                         <div class="col-md-6" style="display: #{!BeanTransacciones.agregandoPago ? 'box' : 'none'}">
                             <h:outputText styleClass="Tlabel" value="Elegir categoria de deducción"></h:outputText>
-                            <h:selectOneMenu class="contactus dropList" value="#{BeanTransacciones.deduccion}">
-                                <f:selectItems value="#{BeanTransacciones.listaDeducciones}"/>
+                            <h:selectOneMenu class="contactus dropList" >
+                                <f:selectItems  />
                             </h:selectOneMenu>
                             <br></br>
                             
@@ -149,7 +149,7 @@
                              <br/>
                              <br/>
                              <br/>
-                             <h:outputText value="#{BeanTransacciones.mensaje}" style="color: white" class="info"></h:outputText>
+                             <h:outputText value="#{BeanUsuario.mensaje}" style="color: white" class="info"></h:outputText>
                         </div>
                          
                          
