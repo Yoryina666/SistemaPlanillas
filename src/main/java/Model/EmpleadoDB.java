@@ -235,4 +235,57 @@ public class EmpleadoDB {
         }
         return listaEmpleado;
     }
+    
+    public LinkedList<Empleado> ObtenerTodosEmpleado(String planilla) throws SNMPExceptions, SQLException{
+        String select= "";
+        
+        try{
+            //Se intancia la clase de acceso a datos
+            accesoDatos= new AccesoDatos();
+            
+            //Se vacía el Dataset
+            listaEmpleado = new LinkedList<Empleado>();
+            
+            //Se crea la sentencia de Busqueda
+            select=
+                    "SELECT E.[cedula]\n" +
+                    "      ,E.[nombre]\n" +
+                    "      ,E.[apellido]\n" +
+                    "      ,E.[salarioBase]\n" +
+                    "      ,E.[horas]\n" +
+                    "      ,E.[jornada]\n" +
+                    "      ,E.[activo]\n" +
+                    "  FROM [ProyectoG5].[dbo].[Transaccion] T INNER JOIN Empleado E ON T.empleadoID = E.cedula INNER JOIN Planilla P ON T.planillaID = " + planilla
+                    ;
+            //se ejecuta la sentencia sql
+            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los Empleados
+            while(rsPA.next()){
+                
+                String cCedula = rsPA.getString("cedula");
+                String cNombre = rsPA.getString("nombre");
+                String cApellido = rsPA.getString("apellido");
+                double cSalario = rsPA.getDouble("salarioBase");
+                short cHoras = rsPA.getShort("horas");
+                String cJornada = rsPA.getString("jornada");
+                boolean cActivo = rsPA.getBoolean("activo");
+                
+                //se construye el objeto.
+                Empleado emp = new Empleado(cCedula, cNombre, cApellido, cSalario, cHoras, cJornada, cActivo);
+                
+                listaEmpleado.add(emp);
+            }
+            rsPA.close();//se cierra el ResultSeat.
+            
+        }catch(SQLException e){
+            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
+                                     e.getMessage(),e.getErrorCode());
+        }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
+        }finally{
+            
+        }
+        return listaEmpleado;
+    }
+    
 }

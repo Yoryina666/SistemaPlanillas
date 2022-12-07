@@ -2,11 +2,15 @@ package Controller;
 
 import DAO.SNMPExceptions;
 import Model.Deduccion;
+import Model.DeduccionDB;
 import Model.Detalle;
 import Model.DetalleDB;
 import Model.Empleado;
+import Model.EmpleadoDB;
 import Model.Pago;
+import Model.PagoDB;
 import Model.Planilla;
+import Model.PlanillaDB;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
@@ -39,6 +43,7 @@ public class BeanTransacciones {
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
     
     public LinkedList<Planilla> getListaPlanillas() {
+        listaPlanillas = (new PlanillaDB()).obtenerPlanillasActivas();
         return listaPlanillas;
     }
 
@@ -94,11 +99,13 @@ public class BeanTransacciones {
         return listaTransacciones;
     }
 
-    public LinkedList<Pago> getListaPagos() {
+    public LinkedList<Pago> getListaPagos() throws SQLException, SNMPExceptions, ClassNotFoundException, NamingException {
+        listaPagos = (new PagoDB()).leerPagos();
         return listaPagos;
     }
 
-    public LinkedList<Deduccion> getListaDeducciones() {
+    public LinkedList<Deduccion> getListaDeducciones() throws SQLException, SNMPExceptions, ClassNotFoundException, NamingException {
+        listaDeducciones = (new DeduccionDB()).leerDeducciones();
         return listaDeducciones;
     }
 
@@ -136,7 +143,8 @@ public class BeanTransacciones {
     
     // </editor-fold>
     
-    public void planillaCambia() {
+    public void planillaCambia() throws SNMPExceptions, SQLException {
+        listaEmpleados = (new EmpleadoDB()).ObtenerTodosEmpleado(planilla.getPlanillaID());
     }
     
     public void empleadoCambia() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {

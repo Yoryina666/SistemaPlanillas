@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+import javax.naming.NamingException;
 
 /**
  *
@@ -76,6 +77,32 @@ public class PlanillaDB {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
         } finally {
 
+        }
+    }
+
+    public LinkedList<Planilla> obtenerPlanillasActivas() {
+        LinkedList<Planilla> listaPlanillas = new LinkedList<>();
+        String query = "SELECT planillaID ID, fechaInicio Inicio, fechaFinal Final, fechaPago Pago, jornada Jornada, turno Turno FROM Planilla WHERE cerrada = 0";
+        try (
+                ResultSet rs = accesoDatos.ejecutaSQLRetornaRS(query)
+            ) {
+            while (rs.next()) {
+                listaPlanillas.add(
+                    new Planilla(
+                        rs.getString("ID"),
+                        rs.getDate("Inicio"),
+                        rs.getDate("Final"),
+                        rs.getDate("Pago"),
+                        rs.getString("Jornada"),
+                        rs.getInt("Turno"),
+                        false
+                    )
+                );
+            }
+        } catch (SQLException | SNMPExceptions | ClassNotFoundException | NamingException e) {
+            throw e;
+        } finally {
+            return listaPlanillas;
         }
     }
     
