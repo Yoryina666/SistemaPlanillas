@@ -166,7 +166,7 @@ public class BeanEmpleado implements Serializable{
     }
     
     //Public Void - Create Employee.
-     public void createEmpleado(String pcedula) throws SNMPExceptions, SQLException {
+    public void createEmpleado(String pcedula) throws SNMPExceptions, SQLException {
         if(this.nombre.equals("")|| this.cedula.equals("") || this.apellido.equals("")){
             
             this.setMensaje("Campos Obligatorios!");

@@ -103,39 +103,42 @@
                         </div>
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Fecha de inicio"></h:outputText>
-                            <p:calendar inputStyleClass="contactus" inputStyle="text-shadow: 0px 0px 0px;"></p:calendar>
+                            <p:calendar inputStyleClass="con
+                                        tactus" inputStyle="text-shadow: 0px 0px 0px;" value="#{BeanPlanilla.fechainicio}"></p:calendar>
                         </div>
                          <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Fecha final"></h:outputText>
-                            <p:calendar inputStyleClass="contactus" inputStyle="text-shadow: 0px 0px 0px;"></p:calendar>
+                            <p:calendar inputStyleClass="contactus" inputStyle="text-shadow: 0px 0px 0px;" value="#{BeanPlanilla.fechafinal}"></p:calendar>
                         </div>
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Fecha de pago"></h:outputText>
-                            <p:calendar inputStyleClass="contactus" inputStyle="text-shadow: 0px 0px 0px;"></p:calendar>
+                            <p:calendar inputStyleClass="contactus" inputStyle="text-shadow: 0px 0px 0px;" value="#{BeanPlanilla.fechapago}"></p:calendar>
                         </div>
-                         <div class="col-md-6">
-                            <h:outputText styleClass="Tlabel" value="Jornada"></h:outputText>
-                            <h:inputText class="contactus"></h:inputText> 
+                        <div class="col-md-6">
+                             <h:outputText styleClass="Tlabel" value="Jornada"></h:outputText>
+                             <h:selectOneMenu class="contactus dropList" onchange="" value="#{BeanPlanilla.jornada}">
+                                 <f:selectItems value="#{BeanEmpleado.getListaJornadas()}"/>
+                             </h:selectOneMenu> 
                         </div>
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Turno"></h:outputText>
-                            <h:inputText class="contactus"></h:inputText> 
+                            <h:inputText class="contactus" value="#{BeanPlanilla.turno}"></h:inputText> 
                         </div>
                          <div class="col-md-6">
                             <label class="contactus" for="flexCheckDefault">Cerrada</label>
                             <h:selectBooleanCheckbox class=" form-check-input" id="flexCheckDefault"></h:selectBooleanCheckbox>
                         </div>
                         <div class="col-md-12">
-                            <h:commandButton class="send_btn" actionListener="#{BeanUsuario.cancelar()}" value="Cancelar" ></h:commandButton>
+                            <h:commandButton class="send_btn" value="Cancelar"></h:commandButton>
                             <br></br>
                             
                         </div>
                         <div class="col-md-12 ">
-                            <h:commandButton styleClass="send_btn"  value="#{BeanUsuario.modoEdicion ? 'Editar' : 'Crear'}" ></h:commandButton> 
+                            <h:commandButton styleClass="send_btn"  actionListener="#{BeanPlanilla.AutoPlanilla()}" ></h:commandButton> 
                              <br/>
                              <br/>
                              <br/>
-                             <h:outputText value="#{BeanUsuario.mensaje}" style="color: white" class="info"></h:outputText>
+                             <h:outputText value="" style="color: white" class="info"></h:outputText>
                         </div>
                          
                          

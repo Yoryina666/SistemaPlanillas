@@ -1,31 +1,30 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Model;
 
 /**
  *
- * @author Aylan Miranda
+ * @author Estudiante
  */
 public class Deduccion {
-    
-    /** Nombre del usuario. */
     private String nombre;
-    
-    /** Descripción del deduccion. */
-    private String descripcion;
-    
-    /** Define si se aplica a la hora de crear la planilla. */
-    private boolean automatico;
-    
-    /** Define el monto, pero puede ser considerado fijo o porcentual. */
-    private double monto;
-    
-    /** Nombre de la persona que realiza la deducción. */
+    private String despcripcion;
     private String encargado;
-    
-    /** Define si el monto es usado como un porcentaje. */
-    private boolean porcentual;
-    
-    // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
-    
+    private float monto;
+    private boolean esPorcentual;
+    private boolean automatic;
+
+    public Deduccion(String nombre, String despcripcion, String encargado, float monto, boolean esPorcentual, boolean automatic) {
+        this.nombre = nombre;
+        this.despcripcion = despcripcion;
+        this.encargado = encargado;
+        this.monto = monto;
+        this.esPorcentual = esPorcentual;
+        this.automatic = automatic;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -34,28 +33,12 @@ public class Deduccion {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDespcripcion() {
+        return despcripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public boolean isAutomatico() {
-        return automatico;
-    }
-
-    public void setAutomatico(boolean automatico) {
-        this.automatico = automatico;
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
+    public void setDespcripcion(String despcripcion) {
+        this.despcripcion = despcripcion;
     }
 
     public String getEncargado() {
@@ -66,32 +49,28 @@ public class Deduccion {
         this.encargado = encargado;
     }
 
-    public boolean isPorcentual() {
-        return porcentual;
+    public float getMonto() {
+        return monto;
     }
 
-    public void setPorcentual(boolean porcentual) {
-        this.porcentual = porcentual;
-    }
-    
-    // </editor-fold>
-    
-    /**
-     * Constructor con datos.
-     * @param nombre
-     * @param descripcion
-     * @param automatico
-     * @param monto
-     * @param encargado
-     * @param porcentual 
-     */
-    public Deduccion(String nombre, String descripcion, boolean automatico, double monto, String encargado, boolean porcentual) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.automatico = automatico;
+    public void setMonto(float monto) {
         this.monto = monto;
-        this.encargado = encargado;
-        this.porcentual = porcentual;
+    }
+
+    public boolean isEsPorcentual() {
+        return esPorcentual;
+    }
+
+    public void setEsPorcentual(boolean esPorcentual) {
+        this.esPorcentual = esPorcentual;
+    }
+
+    public boolean isAutomatic() {
+        return automatic;
+    }
+
+    public void setAutomatic(boolean automatic) {
+        this.automatic = automatic;
     }
     
 }
