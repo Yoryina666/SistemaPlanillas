@@ -29,6 +29,8 @@ public class TransaccionDB {
         String strSQL = "";
         try {
             int TransaccionID = 0;
+            double Salario = 0;
+            int horas = 0;
             
             strSQL = "INSERT INTO Transaccion (empleadoID, planillaID, salarioBruto, salarioNeto) "
                     + "VALUES ('" + empleadoID + "', '" + planillaID + "', " + 0 + ", " + 0 + ");";
@@ -39,9 +41,16 @@ public class TransaccionDB {
             while(rsPA.next()){
                 TransaccionID = rsPA.getInt("TransaccionID");
             }
+            strSQL = "SELECT salarioBase, horas FROM Empleado WHERE cedula = '" + empleadoID + "'";
+            rsPA= accesoDatos.ejecutaSQLRetornaRS(strSQL);
+            while(rsPA.next()){
+                Salario = rsPA.getDouble("salarioBase");
+                horas = rsPA.getInt("horas");
+            }
+            Salario = Salario * horas;
             rsPA.close();
-            AutomaticCrearPago(TransaccionID);
-            AutomaticCrearDeducciones(TransaccionID);
+            double salarioBruto = AutomaticCrearPago(TransaccionID, Salario);
+            AutomaticCrearDeducciones(TransaccionID, salarioBruto);
             
          } catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
@@ -53,16 +62,21 @@ public class TransaccionDB {
         
     }
     
-    public void AutomaticCrearDeducciones(int pTransaccionID) throws SNMPExceptions{
+    public void AutomaticCrearDeducciones(int pTransaccionID, double psalarioBruto) throws SNMPExceptions{
       try{
 
         DeduccionDB dDB = new DeduccionDB();
         lista = dDB.ObtenerDeduccionesAutomaticas();
         DetalleTransaccionDB dtDB = new DetalleTransaccionDB();
+        double monto = 0;
         
         for (int i = 0; i < lista.size(); i++) {
             String nombre = lista.get(i).getNombre();
-            dtDB.InsertarDetalleDeduccion(nombre, pTransaccionID);
+            monto = lista.get(i).getMonto();
+            if(lista.get(i).isPorcentual()){
+                monto = psalarioBruto * (monto / 100);
+            }
+            dtDB.InsertarDetalleDeduccion(nombre, pTransaccionID, monto);
         }
       }
        catch (SQLException e) {
@@ -74,17 +88,23 @@ public class TransaccionDB {
         }
     }
     
-    public void AutomaticCrearPago(int pTransaccionID) throws SNMPExceptions{
+    public double AutomaticCrearPago(int pTransaccionID, double pSalario) throws SNMPExceptions{
       try{
 
         PagoDB pDB = new PagoDB();
         listaP = pDB.leerPagosAutomaticos();
         DetalleTransaccionDB dtDB = new DetalleTransaccionDB();
+        double total = 0;
         
         for (int i = 0; i < listaP.size(); i++) {
             String nombre = listaP.get(i).getNombre();
-            dtDB.InsertarDetallePago(nombre, pTransaccionID);
+            double monto = listaP.get(i).getPorcentaje();
+            monto = monto/ 100;
+            monto = monto * pSalario; 
+            total += monto;
+            dtDB.InsertarDetallePago(nombre, pTransaccionID, monto);
         }
+        return total;
       }
        catch (SQLException e) {
             throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());

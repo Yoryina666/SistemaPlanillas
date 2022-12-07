@@ -18,13 +18,13 @@ public class DetalleTransaccionDB {
     private AccesoDatos accesoDatos = new AccesoDatos();
     private Connection conn;
     
-    public void InsertarDetalleDeduccion(String pDeduccion, int TransaccionID) throws SNMPExceptions, SQLException {
+    public void InsertarDetalleDeduccion(String pDeduccion, int TransaccionID, double monto) throws SNMPExceptions, SQLException {
         String strSQL = "";
         
         try {
             
             
-            strSQL = "INSERT INTO DetalleTransaccion(transaccionID, categoriaPagoID, categoriaDeduccionID, monto) VALUES (" + TransaccionID + ", NULL, '" + pDeduccion + "', " + 0 + ")";
+            strSQL = "INSERT INTO DetalleTransaccion(transaccionID, categoriaPagoID, categoriaDeduccionID, monto) VALUES (" + TransaccionID + ", NULL, '" + pDeduccion + "', " + monto + ")";
             
             accesoDatos.ejecutaSQL(strSQL);
          } catch (SQLException e) {
@@ -36,13 +36,13 @@ public class DetalleTransaccionDB {
         }
     }
 
-    public void InsertarDetallePago(String pPago, int TransaccionID) throws SNMPExceptions, SQLException {
+    public void InsertarDetallePago(String pPago, int TransaccionID, double monto) throws SNMPExceptions, SQLException {
         String strSQL = "";
         
         try {
             
             
-            strSQL = "INSERT INTO DetalleTransaccion(transaccionID, categoriaPagoID, categoriaDeduccionID, monto) VALUES (" + TransaccionID + ", '" + pPago + "', NULL, " + 0 + ")";
+            strSQL = "INSERT INTO DetalleTransaccion(transaccionID, categoriaPagoID, categoriaDeduccionID, monto) VALUES (" + TransaccionID + ", '" + pPago + "', NULL, " + monto + ")";
             
             accesoDatos.ejecutaSQL(strSQL);
          } catch (SQLException e) {
