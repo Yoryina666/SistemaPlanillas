@@ -247,16 +247,7 @@ public class EmpleadoDB {
             listaEmpleado = new LinkedList<Empleado>();
             
             //Se crea la sentencia de Busqueda
-            select=
-                    "SELECT E.[cedula]\n" +
-                    "      ,E.[nombre]\n" +
-                    "      ,E.[apellido]\n" +
-                    "      ,E.[salarioBase]\n" +
-                    "      ,E.[horas]\n" +
-                    "      ,E.[jornada]\n" +
-                    "      ,E.[activo]\n" +
-                    "  FROM [ProyectoG5].[dbo].[Transaccion] T INNER JOIN Empleado E ON T.empleadoID = E.cedula INNER JOIN Planilla P ON T.planillaID = " + planilla
-                    ;
+            select= "SELECT E.* FROM Empleado E INNER JOIN Transaccion T ON E.cedula = T.empleadoID WHERE T.planillaID = " + planilla;
             //se ejecuta la sentencia sql
             ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los Empleados

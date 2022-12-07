@@ -11,9 +11,11 @@ import Model.Pago;
 import Model.PagoDB;
 import Model.Planilla;
 import Model.PlanillaDB;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
+import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 
 /**
@@ -42,8 +44,10 @@ public class BeanTransacciones {
     
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
     
-    public LinkedList<Planilla> getListaPlanillas() {
+    public LinkedList<Planilla> getListaPlanillas() throws IOException {
         listaPlanillas = (new PlanillaDB()).obtenerPlanillasActivas();
+        if (listaPlanillas.isEmpty()) mensaje = "No existen planillas, por favor crea una antes de proceder";
+        else planilla = listaPlanillas.get(0);
         return listaPlanillas;
     }
 
@@ -145,9 +149,12 @@ public class BeanTransacciones {
     
     public void planillaCambia() throws SNMPExceptions, SQLException {
         listaEmpleados = (new EmpleadoDB()).ObtenerTodosEmpleado(planilla.getPlanillaID());
+        if (listaEmpleados.isEmpty()) mensaje = "No hay empleados, por favor crea alguno o pidele a un administrador o recursos humanos";
+        else empleado = listaEmpleados.get(0);
     }
     
     public void empleadoCambia() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        if (empleado == null) return;
         listaTransacciones = (new DetalleDB()).leerDetalles(planilla.getPlanillaID(), empleado.getCedula());
         montoHora = empleado.getSalarioBase() / empleado.getHoras();
         float montoDeducciones = 0;

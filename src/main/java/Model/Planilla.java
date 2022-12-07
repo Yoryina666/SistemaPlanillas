@@ -88,5 +88,12 @@ public class Planilla {
     public void setCerrada(boolean cerrada) {
         this.cerrada = cerrada;
     }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s (%s, %d)", planillaID, jornada, turno);
+    }
+    
+    
     
 }
