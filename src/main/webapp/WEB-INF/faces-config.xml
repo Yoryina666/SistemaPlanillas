@@ -41,6 +41,11 @@
     <managed-bean>
         <managed-bean-name>BeanPagos</managed-bean-name>
         <managed-bean-class>Controller.BeanPagos</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>BeanDeducciones</managed-bean-name>
+        <managed-bean-class>Controller.BeanDeducciones</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>

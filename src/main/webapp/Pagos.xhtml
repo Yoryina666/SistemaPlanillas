@@ -116,8 +116,7 @@
                             
                         </div>
                         <div class="col-md-12 ">
-                            <h:commandButton styleClass="send_btn" style="display: #{BeanPagos.modoEdicion ? 'box' : 'none'}" value="Editar" actionListener="#{BeanPagos.actualizarPago() }" ></h:commandButton>
-                            <h:commandButton styleClass="send_btn" style="display: #{!BeanPagos.modoEdicion ? 'box' : 'none'}" value="Crear" actionListener="#{BeanPagos.crearPago() }" ></h:commandButton> 
+                            <h:commandButton styleClass="send_btn" actionListener="#{BeanPagos.crearPago()}" value="#{BeanPagos.modoEdicion ? 'Editar' : 'Crear'}" ></h:commandButton> 
                              <br/>
                              <br/>
                              <br/>
