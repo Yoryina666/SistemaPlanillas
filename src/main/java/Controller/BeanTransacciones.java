@@ -139,16 +139,16 @@ public class BeanTransacciones {
     public void planillaCambia() {
     }
     
-    public void empleadoCambia() {
-        listaTransacciones = (new DetalleDB()).leerDetalles(planilla.getPlanillaID(), empleado.getCedula());
+    public void empleadoCambia() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        listaTransacciones = (new DetalleDB()).leerDetalles(String.valueOf(planilla.getPlanillaID()), empleado.getCedula());
     }
     
-    public void agregarDetalle() {
+    public void agregarDetalle() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         if(regexNumero.matcher(monto).matches()){
             this.setMensaje("Campos Obligatorios!");
         } else {
             Detalle detalle = new Detalle("", agregandoPago ? pago.getNombre() : deduccion.getNombre(), Double.parseDouble(monto));
-            (new DetalleDB()).insertarDetalle(detalle, planilla.getPlanillaID(), empleado.getCedula());
+            (new DetalleDB()).insertarDetalle(detalle, String.valueOf(planilla.getPlanillaID()), empleado.getCedula());
         }
     }
     
