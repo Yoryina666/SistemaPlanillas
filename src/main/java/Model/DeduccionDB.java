@@ -89,5 +89,47 @@ public class DeduccionDB {
             return listaDeducciones;
         }
     }
-    
+     public LinkedList<Deduccion> ObtenerDeduccionesAutomaticas() throws SNMPExceptions, SQLException{
+        String select= "";
+        LinkedList<Deduccion> listaAutomatica = new LinkedList<Deduccion>();
+        
+        try{
+            //Se intancia la clase de acceso a datos
+           
+            
+            //Se vacía el Dataset
+            listaAutomatica = new LinkedList<Deduccion>();
+            
+            //Se crea la sentencia de Busqueda
+            select= "SELECT [nombre]\n" +
+                    "      ,[descripcion]\n" +
+                    "      ,[encargado]\n" +
+                    "      ,[monto]\n" +
+                    "      ,[esPorcentual]\n" +
+                    "      ,[automatico]\n" +
+                    "  FROM [ProyectoG5].[dbo].[CategoriaDeduccion] WHERE [automatico] = 1;";
+            //se ejecuta la sentencia sql
+            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los Empleados
+            while(rsPA.next()){
+                String nombre = rsPA.getString("nombre");
+                String despcripcion = rsPA.getString("descripcion");
+                String encargado = rsPA.getString("encargado");
+                double monto = rsPA.getDouble("monto");
+                boolean esPorcentual= rsPA.getBoolean("esPorcentual");
+                Deduccion ded = new Deduccion(nombre, despcripcion, true, monto , encargado, esPorcentual);
+                listaAutomatica.add(ded);
+            }
+            rsPA.close();//se cierra el ResultSeat.
+            
+        }catch(SQLException e){
+            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
+                                     e.getMessage(),e.getErrorCode());
+        }catch(SNMPExceptions | ClassNotFoundException | NamingException e){
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
+        }finally{
+            
+        }
+        return listaAutomatica;
+    }
 }
