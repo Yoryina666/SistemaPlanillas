@@ -151,34 +151,34 @@
                     <h2 class="titlepage">Planillas</h2>
                     <div class="col-md-12 dataT">
                         
-                            <h:dataTable >
+                        <h:dataTable value="#{BeanPlanilla.listaplanilla}" var="emp">
                                 <h:column>
                                     <f:facet name="header">N°</f:facet>
-                                    
+                                    #{emp.planillaID}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Fecha inicial</f:facet>
-                                   
+                                    #{emp.fechaFormateada(emp.fechainicio)}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Fecha final</f:facet>
-                                    
+                                    #{emp.fechaFormateada(emp.fechafinal)}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Fecha de pago</f:facet>
-                                   
+                                   #{emp.fechaFormateada(emp.fechapago)}
                                 </h:column>
                                  <h:column>
                                     <f:facet name="header">Jornada</f:facet>
-                                   
+                                   #{emp.jornada}
                                 </h:column>
                                  <h:column>
                                     <f:facet name="header">Turno</f:facet>
-                                   
+                                   #{emp.turno}
                                 </h:column>
                                  <h:column>
                                     <f:facet name="header">Cerrada</f:facet>
-                                   
+                                   #{emp.cerrada}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Editar</f:facet>
@@ -186,7 +186,7 @@
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Borrar</f:facet>
-                                    <h:commandButton class="botones"  value=""></h:commandButton>
+                                    <h:commandButton class="botones"  value="Cerrar" actionListener="#{BeanPlanilla.CerrarPlanilla(emp.planillaID)}"></h:commandButton>
                                 </h:column>
                             </h:dataTable>
                         

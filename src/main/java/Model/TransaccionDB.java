@@ -25,6 +25,23 @@ public class TransaccionDB {
     //Transaccion DB existe y Transaccion sola no por que Transaccion es una tabla intermedia QUE NO SE EDITA
     //Se Crea y no se edita, solo se edita el salarioNeto 
     
+    public void CerrarTransaccion(String pTransaccionID, double SalarioBruto, double SalarioNeto) throws SNMPExceptions, SQLException {
+       String strSQL = "";
+        try {
+            strSQL = "UPDATE dbo.Transaccion SET salarioBruto = " + SalarioBruto + ", salarioNeto = " + SalarioNeto + " WHERE transaccionID = "+ pTransaccionID + ";";
+            
+            accesoDatos.ejecutaSQL(strSQL);          
+         } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
+    
+    
+    
     public void crearTransaccion(String empleadoID, int planillaID) throws SNMPExceptions, SQLException {
         String strSQL = "";
         try {
@@ -87,6 +104,7 @@ public class TransaccionDB {
 
         }
     }
+
     
     public double AutomaticCrearPago(int pTransaccionID, double pSalario) throws SNMPExceptions{
       try{

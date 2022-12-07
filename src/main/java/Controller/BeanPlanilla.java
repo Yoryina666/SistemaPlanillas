@@ -9,25 +9,46 @@ import Model.Planilla;
 import Model.PlanillaDB;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  *
  * @author Estudiante
  */
 public class BeanPlanilla {
-   private int planillaID;
+   private String planillaID;
     private Date fechainicio;
     private Date fechafinal;
     private Date fechapago;
     private String jornada;
     private int turno;
     private boolean cerrada;
+    private LinkedList<Planilla> listaplanilla = new 
+                    LinkedList<Planilla>();
 
-    public int getPlanillaID() {
+    public LinkedList<Planilla> getListaplanilla() throws SNMPExceptions, SQLException {
+        LinkedList<Planilla> lista = new 
+                    LinkedList<Planilla>();
+        PlanillaDB pDB = new PlanillaDB();
+        
+        lista = pDB.ObtenerPlanillas();
+        
+        LinkedList resultLista = new LinkedList();
+           
+        resultLista=lista;       
+        return resultLista;
+    }
+
+    public void setListaplanilla(LinkedList<Planilla> listaplanilla) {
+        this.listaplanilla = listaplanilla;
+    }
+
+    
+    public String getPlanillaID() {
         return planillaID;
     }
 
-    public void setPlanillaID(int planillaID) {
+    public void setPlanillaID(String planillaID) {
         this.planillaID = planillaID;
     }
 
@@ -86,6 +107,12 @@ public class BeanPlanilla {
             PlanillaDB pDB = new PlanillaDB();
             pDB.CrearPlanilla(plan);
     }    
+    
+    public void CerrarPlanilla(String idPlanilla) throws SNMPExceptions, SQLException {
+        PlanillaDB pDB = new PlanillaDB();
+        pDB.CerrarPlanilla(idPlanilla);
+    }
+    
     
         //TO-DO
         //Search Employees based upon TipoJornada (on Empleado DB)
