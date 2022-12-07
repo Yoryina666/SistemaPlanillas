@@ -136,7 +136,7 @@ public class BeanTransacciones {
     
     // </editor-fold>
     
-    public void planillaCambia() {s
+    public void planillaCambia() {
     }
     
     public void empleadoCambia() {
