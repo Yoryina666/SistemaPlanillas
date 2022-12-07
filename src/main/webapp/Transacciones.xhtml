@@ -91,18 +91,15 @@
                   <div class="col-md-12">
                      <div class="row">
                          
-                        <div class="col-md-6">
-                            <h:outputText styleClass="Tlabel" value="No. Transacción"></h:outputText>
-                            <h:inputText class="contactus" readonly="#{BeanUsuario.modoEdicion}" value="#{BeanUsuario.nombre}"></h:inputText> 
-                        </div>
+                        
                          <div class="col-md-6">
-                             <h:outputText styleClass="Tlabel" value="Empleado"></h:outputText>
+                             <h:outputText styleClass="Tlabel" value="Planilla"></h:outputText>
                              <h:selectOneMenu class="contactus dropList" onchange="" value="">
                                  <f:selectItems />
                              </h:selectOneMenu> 
                         </div>
                          <div class="col-md-6">
-                            <h:outputText styleClass="Tlabel" value="Planilla"></h:outputText>
+                            <h:outputText styleClass="Tlabel" value="Empleado"></h:outputText>
                             <h:selectOneMenu class="contactus dropList" >
                                 <f:selectItems  />
                             </h:selectOneMenu>
@@ -114,6 +111,37 @@
                          <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Salario neto"></h:outputText>
                             <h:inputText class="contactus" readonly="" value=""></h:inputText> 
+                        </div>
+                        <div class="col-md-6">
+                            <h:outputText styleClass="Tlabel" value="Salario por hora"></h:outputText>
+                            <h:inputText class="contactus" readonly="" value=""></h:inputText> 
+                        </div>
+                        <div class="col-md-12">
+                            <h:selectOneRadio class="contactus">
+                                <f:selectItem itemValue="1" itemLabel="Agregar pago" />
+                                <f:selectItem itemValue="2" itemLabel="Agregar deducción" />
+                                
+                            </h:selectOneRadio>
+                            <br></br>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <h:outputText styleClass="Tlabel" value="Elegir categoria de pago"></h:outputText>
+                            <h:selectOneMenu class="contactus dropList" >
+                                <f:selectItems  />
+                            </h:selectOneMenu>
+                            <h:outputText styleClass="Tlabel" value="Horas para esta categoria"></h:outputText>
+                            <h:inputText class="contactus" readonly="" value=""></h:inputText> 
+                            <br></br>
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <h:outputText styleClass="Tlabel" value="Elegir categoria de deducción"></h:outputText>
+                            <h:selectOneMenu class="contactus dropList" >
+                                <f:selectItems  />
+                            </h:selectOneMenu>
+                            <br></br>
+                            
                         </div>
                         <div class="col-md-12">
                             <h:commandButton class="send_btn" actionListener="#{BeanUsuario.cancelar()}" value="Cancelar" ></h:commandButton>
@@ -139,30 +167,17 @@
                     <div class="col-md-12 dataT">
                         
                             <h:dataTable value="">
+                                
+
                                 <h:column>
-                                    <f:facet name="header">No. Transacción</f:facet>
+                                    <f:facet name="header">Categoria</f:facet>
                                     
                                 </h:column>
                                 <h:column>
-                                    <f:facet name="header">Empleado</f:facet>
+                                    <f:facet name="header">Monto</f:facet>
                                     
                                 </h:column>
-                                <h:column>
-                                    <f:facet name="header">Planilla</f:facet>
-                                    
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Salario bruto</f:facet>
-                                    
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Salario neto</f:facet>
-                                    
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Editar</f:facet>
-                                    <h:commandButton class="botones" value="Editar"></h:commandButton>
-                                </h:column>
+                                
                                 <h:column>
                                     <f:facet name="header">Borrar</f:facet>
                                     <h:commandButton class="botones" value="#{usuario.estado ? 'Desactivar' : 'Activar'}"></h:commandButton>
