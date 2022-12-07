@@ -108,7 +108,6 @@ public class BeanPagos {
     
     public void editarPago(Pago pago) {
         setModoEdicion(true);
-        System.out.println("1 FUCK");
         nombre = pago.getNombre();
         descripcion = pago.getDescripcion();
         automatico = pago.isAutomatico();
@@ -124,22 +123,8 @@ public class BeanPagos {
             this.setMensaje("Campos Obligatorios!");
         } else {
             pago.setPorcentaje(Double.parseDouble(porcentaje));
-            db.insertarPago(pago);
-            cancelar();
-        }
-        
-    }
-    
-    public void actualizarPago() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
-        PagoDB db = new PagoDB();
-        Pago pago = new Pago(
-            nombre, descripcion, automatico, 1
-        );
-        if(nombre.equals("") || !regexNumero.matcher(porcentaje).matches()){
-            this.setMensaje("Campos Obligatorios!");
-        } else {
-            pago.setPorcentaje(Double.parseDouble(porcentaje));
-            db.actualizarPago(pago);
+            if (modoEdicion) db.actualizarPago(pago);
+            else db.insertarPago(pago);
             cancelar();
         }
     }
