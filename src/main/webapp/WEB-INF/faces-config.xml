@@ -53,5 +53,9 @@
         <managed-bean-class>Controller.BeanTransacciones</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-    
+    <managed-bean>
+        <managed-bean-name>BeanPlanilla</managed-bean-name>
+        <managed-bean-class>Controller.BeanPlanilla</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>
