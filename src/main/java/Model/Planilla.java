@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Estudiante
  */
 public class Planilla {
-    private int planillaID;
+    private String planillaID;
     private Date fechainicio;
     private Date fechafinal;
     private Date fechapago;
@@ -19,7 +19,7 @@ public class Planilla {
     private int turno;
     private boolean cerrada;
 
-    public Planilla(int planillaID, Date fechainicio, Date fechafinal, Date fechapago, String jornada, int turno, boolean cerrada) {
+    public Planilla(String planillaID, Date fechainicio, Date fechafinal, Date fechapago, String jornada, int turno, boolean cerrada) {
         this.planillaID = planillaID;
         this.fechainicio = fechainicio;
         this.fechafinal = fechafinal;
@@ -33,11 +33,11 @@ public class Planilla {
         return String.format("%1$tA %1$te, %1$tb %1$tY", fecha);
     }
     
-    public int getPlanillaID() {
+    public String getPlanillaID() {
         return planillaID;
     }
 
-    public void setPlanillaID(int planillaID) {
+    public void setPlanillaID(String planillaID) {
         this.planillaID = planillaID;
     }
 
