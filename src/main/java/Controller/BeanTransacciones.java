@@ -140,7 +140,7 @@ public class BeanTransacciones {
     }
     
     public void empleadoCambia() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
-        listaTransacciones = (new DetalleDB()).leerDetalles(String.valueOf(planilla.getPlanillaID()), empleado.getCedula());
+        listaTransacciones = (new DetalleDB()).leerDetalles(planilla.getPlanillaID(), empleado.getCedula());
     }
     
     public void agregarDetalle() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
@@ -148,7 +148,7 @@ public class BeanTransacciones {
             this.setMensaje("Campos Obligatorios!");
         } else {
             Detalle detalle = new Detalle("", agregandoPago ? pago.getNombre() : deduccion.getNombre(), Double.parseDouble(monto));
-            (new DetalleDB()).insertarDetalle(detalle, String.valueOf(planilla.getPlanillaID()), empleado.getCedula());
+            (new DetalleDB()).insertarDetalle(detalle, planilla.getPlanillaID(), empleado.getCedula());
         }
     }
     
