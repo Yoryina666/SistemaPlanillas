@@ -94,38 +94,37 @@
                         
                          <div class="col-md-6">
                              <h:outputText styleClass="Tlabel" value="Planilla"></h:outputText>
-                             <h:selectOneMenu class="contactus dropList" onchange="" value="">
-                                 <f:selectItems />
+                             <h:selectOneMenu class="contactus dropList" onchange="#{BeanTransacciones.planillaCambia}" value="#{BeanTransacciones.planilla}">
+                                 <f:selectItems value="#{BeanTransacciones.listaPlanillas}" />
                              </h:selectOneMenu> 
                         </div>
                          <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Empleado"></h:outputText>
-                            <h:selectOneMenu class="contactus dropList" >
-                                <f:selectItems  />
+                            <h:selectOneMenu onchange="#{BeanTransacciones.empleadoCambia}" class="contactus dropList">
+                                <f:selectItems value="#{BeanTransacciones.listaEmpleados}"/>
                             </h:selectOneMenu>
                         </div>
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Salario bruto"></h:outputText>
-                            <h:inputText class="contactus" readonly="" value=""></h:inputText> 
+                            <h:inputText class="contactus" readonly="true" value="#{BeanTransacciones.montoBruto}"></h:inputText> 
                         </div>
                          <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Salario neto"></h:outputText>
-                            <h:inputText class="contactus" readonly="" value=""></h:inputText> 
+                            <h:inputText class="contactus" readonly="true" value="#{BeanTransacciones.montoNeto}"></h:inputText> 
                         </div>
                         <div class="col-md-6">
                             <h:outputText styleClass="Tlabel" value="Salario por hora"></h:outputText>
-                            <h:inputText class="contactus" readonly="" value=""></h:inputText> 
+                            <h:inputText class="contactus" readonly="true" value="#{BeanTransacciones.montoHora}"></h:inputText> 
                         </div>
                         <div class="col-md-12">
-                            <h:selectOneRadio class="contactus">
-                                <f:selectItem itemValue="1" itemLabel="Agregar pago" />
-                                <f:selectItem itemValue="2" itemLabel="Agregar deducción" />
-                                
+                            <h:selectOneRadio class="contactus" value="#{BeanTransacciones.agregandoPago}">
+                                <f:selectItem itemValue="true" itemLabel="Agregar pago"/>
+                                <f:selectItem itemValue="false" itemLabel="Agregar deducción"/>
                             </h:selectOneRadio>
                             <br></br>
                             
                         </div>
-                        <div class="col-md-6">
+                         <div class="col-md-6" style="display: #{BeanTransacciones.agregandoPago ? 'box' : 'none'}">
                             <h:outputText styleClass="Tlabel" value="Elegir categoria de pago"></h:outputText>
                             <h:selectOneMenu class="contactus dropList" >
                                 <f:selectItems  />
@@ -135,7 +134,7 @@
                             <br></br>
                             
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" style="display: #{!BeanTransacciones.agregandoPago ? 'box' : 'none'}">
                             <h:outputText styleClass="Tlabel" value="Elegir categoria de deducción"></h:outputText>
                             <h:selectOneMenu class="contactus dropList" >
                                 <f:selectItems  />
@@ -144,12 +143,9 @@
                             
                         </div>
                         <div class="col-md-12">
-                            <h:commandButton class="send_btn" actionListener="#{BeanUsuario.cancelar()}" value="Cancelar" ></h:commandButton>
-                            <br></br>
-                            
                         </div>
                         <div class="col-md-12 ">
-                            <h:commandButton styleClass="send_btn" actionListener="#{BeanUsuario.crearUsuario()}" value="#{BeanUsuario.modoEdicion ? 'Editar' : 'Crear'}" ></h:commandButton> 
+                            <h:commandButton styleClass="send_btn" actionListener="#{BeanTransacciones.agregarDetalle()}" value="Crear" ></h:commandButton> 
                              <br/>
                              <br/>
                              <br/>
@@ -166,21 +162,21 @@
                     <h2 class="titlepage">Transacciones</h2>
                     <div class="col-md-12 dataT">
                         
-                            <h:dataTable value="">
+                        <h:dataTable value="#{BeanTransacciones.listaTransacciones}" var="transaccion">
                                 
 
                                 <h:column>
                                     <f:facet name="header">Categoria</f:facet>
-                                    
+                                    #{transaccion.categoria}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">Monto</f:facet>
-                                    
+                                    #{transaccion.monto}
                                 </h:column>
                                 
                                 <h:column>
                                     <f:facet name="header">Borrar</f:facet>
-                                    <h:commandButton class="botones" value="#{usuario.estado ? 'Desactivar' : 'Activar'}"></h:commandButton>
+                                    <h:commandButton class="botones" value="Borrar" actionListener="#{BeanTransacciones.borrarDetalle(transaccion)}"></h:commandButton>
                                 </h:column>
                             </h:dataTable>
                         
