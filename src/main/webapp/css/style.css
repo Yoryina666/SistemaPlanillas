@@ -618,7 +618,7 @@ table, thead, tbody,tr,td{
 
 
 
-<<<<<<< Updated upstream
+
 #nav {
 	
 	width: 100%;
@@ -627,14 +627,14 @@ table, thead, tbody,tr,td{
 	list-style: none;
 	background: #ccc;
 	
-	}
+}
 
 #nav li { 
 	float: left;
         text-align: right;
 	margin: 0;
 	padding: 0;
-	}
+}
 
 #nav a {
 	
@@ -647,59 +647,12 @@ table, thead, tbody,tr,td{
 	font-size: 90%;
 	color: rgb(65, 93, 131);
 	margin-left: 50px;
-	}
+}
 
 #nav #nav-1 a {
-	padding-left: 20px;
-=======
-
-
-#nav {
-	
-	width: 100%;
-	margin: 0 auto;
-	padding: 0;
-	list-style: none;
-	background: #ccc;
-        
-       
-        
-	}
-
-        
-#nav li { 
-	float: left;
-	margin: 0;
-	padding: 0;
-        text-align: right
-	}
-
-#nav a {
-	display: block;
-	padding: 6px 30px 6px 5px;
-	text-decoration: none;
-	font-weight: bold;
-	font-size: 90%;
-	color: #415D83;
-	text-align: center;
-        margin-top: 15px;
-        padding-left: 50px;
-        padding-bottom: 80px;
-	}
-
-#nav #nav-1 a {
-	padding-left: 50px;
->>>>>>> Stashed changes
-	}
+	padding-left: 20px
+}
 
 #nav a:hover {
 	color: #000;
-<<<<<<< Updated upstream
 	}
-=======
-	}
-
-
-
-
->>>>>>> Stashed changes
