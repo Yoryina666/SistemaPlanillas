@@ -106,4 +106,12 @@ public class Empleado {
         return    "Reactivar";
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s (%s)", nombre, apellido, cedula);
+    }
+     
+     
+     
 }

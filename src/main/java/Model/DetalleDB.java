@@ -50,7 +50,7 @@ public class DetalleDB {
     public LinkedList<Detalle> leerDetalles(String planilla, String empleado) throws SQLException, SNMPExceptions, ClassNotFoundException, NamingException {
         LinkedList<Detalle> listaDetalles = new LinkedList<>();
         String query = String.format(
-            "SELECT detalleID ID, categoriaPagoID PagoID, categoriaDeduccionID DeduccionID, monto Monto FROM DetalleTransaccion WHERE transaccionID = (SELECT T.transaccionID FROM Transaccion T INNER JOIN Empleado E ON T.empleadoID = '%s' INNER JOIN Planilla P ON T.planillaID = '%s')",
+            "SELECT detalleID ID, categoriaPagoID PagoID, categoriaDeduccionID DeduccionID, monto Monto FROM DetalleTransaccion WHERE transaccionID = (SELECT transaccionID FROM Transaccion WHERE empleadoID = '%s' AND planillaID = '%s')",
             empleado, planilla
         );
         try (

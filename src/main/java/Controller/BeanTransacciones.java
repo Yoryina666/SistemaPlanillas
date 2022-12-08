@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.naming.NamingException;
 
 /**
@@ -44,15 +46,20 @@ public class BeanTransacciones {
     
     // <editor-fold defaultstate="collapsed" desc="Setters y Getters">
     
-    public LinkedList<Planilla> getListaPlanillas() throws IOException {
+    public LinkedList<Planilla> getListaPlanillas() throws IOException, SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         listaPlanillas = (new PlanillaDB()).obtenerPlanillasActivas();
         if (listaPlanillas.isEmpty()) mensaje = "No existen planillas, por favor crea una antes de proceder";
-        else planilla = listaPlanillas.get(0);
+        else if (planilla == null) setPlanilla(listaPlanillas.get(0));
         return listaPlanillas;
     }
 
     public Planilla getPlanilla() {
-        return planilla;
+        return (Planilla) planilla;
+    }
+
+    public void setPlanilla(Planilla planilla) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        this.planilla = planilla;
+        planillaCambia();
     }
 
     public LinkedList<Empleado> getListaEmpleados() {
@@ -63,8 +70,9 @@ public class BeanTransacciones {
         return empleado;
     }
 
-    public void setEmpleado(Empleado empleado) {
+    public void setEmpleado(Empleado empleado) throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
         this.empleado = empleado;
+        empleadoCambia();
     }
 
     public boolean isAgregandoPago() {
@@ -102,7 +110,7 @@ public class BeanTransacciones {
     public LinkedList<Detalle> getListaTransacciones() {
         return listaTransacciones;
     }
-
+    
     public LinkedList<Pago> getListaPagos() throws SQLException, SNMPExceptions, ClassNotFoundException, NamingException {
         listaPagos = (new PagoDB()).leerPagos();
         return listaPagos;
@@ -147,10 +155,19 @@ public class BeanTransacciones {
     
     // </editor-fold>
     
-    public void planillaCambia() throws SNMPExceptions, SQLException {
+    public void planillaCambiaEvento(ValueChangeEvent e)throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+	planillaCambia();
+    } 
+    
+    public void empleadoCambiaEvento(ValueChangeEvent e)throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+	empleadoCambia();
+    }
+    
+    public void planillaCambia() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {
+        if (planilla == null) return;
         listaEmpleados = (new EmpleadoDB()).ObtenerTodosEmpleado(planilla.getPlanillaID());
         if (listaEmpleados.isEmpty()) mensaje = "No hay empleados, por favor crea alguno o pidele a un administrador o recursos humanos";
-        else empleado = listaEmpleados.get(0);
+        else if (empleado == null) setEmpleado(listaEmpleados.get(0));
     }
     
     public void empleadoCambia() throws SNMPExceptions, SQLException, ClassNotFoundException, NamingException {

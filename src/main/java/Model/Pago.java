@@ -67,4 +67,9 @@ public class Pago {
     
     // </editor-fold>
     
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
 }

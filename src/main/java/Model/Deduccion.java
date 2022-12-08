@@ -93,5 +93,10 @@ public class Deduccion {
         this.encargado = encargado;
         this.porcentual = porcentual;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
     
 }
